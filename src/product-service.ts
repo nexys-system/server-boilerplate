@@ -1,15 +1,11 @@
 import Lib from '@nexys/lib';
 import { Types } from '@nexys/lib';
 import { product, inProd } from './config';
-const { host, token: auth } = product.service;
-
-if (!auth) {
-  throw Error('the app needs a app token to start');
-}
+const { host, token } = product.service;
 
 const libConfig: Types.IInit = {
   host,
-  auth,
+  auth: token,
   i18n: {
     local: false
   },
