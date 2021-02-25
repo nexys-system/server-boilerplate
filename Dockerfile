@@ -1,17 +1,17 @@
 FROM node:13.7.0-alpine
 
-# add git in case needed by yarn
-RUN apk --no-cache add git
+# GIT SHA is passed as ARG and then copied into ENV VAR (Args are not perssted beyond build)
+ARG GIT_SHA 
+ENV GIT_SHA_ENV=$GIT_SHA
 
 COPY package.json package.json
 RUN yarn install
 
-COPY tsconfig.json tsconfig.json
+COPY dist dist
 
-COPY src src
 RUN mkdir locales
 
-RUN yarn build
+RUN echo "git sha $GIT_SHA_ENV"
 
-CMD ["yarn", "start"]
-
+# run with arg to be able to display the SHA in the app
+CMD yarn start $GIT_SHA_ENV
