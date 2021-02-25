@@ -12,7 +12,6 @@
   "author": "Nexys Sarl",
   "license": "MIT",
   "devDependencies": {
-    "@types/hapi__joi": "^17.1.4",
     "@types/jest": "^26.0.9",
     "@types/koa-mount": "^4.0.0",
     "@types/node": "^14.0.27",
@@ -23,7 +22,7 @@
     "typescript": "3.9.3"
   },
   "dependencies": {
-    "@nexys/koa-lib": "^2.1.7",
-    "@nexys/lib": "^2.4.24"
+    "@nexys/koa-lib": "^2.3.7",
+    "@nexys/lib": "^2.6.3"
   }
 }
