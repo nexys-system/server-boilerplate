@@ -12,7 +12,7 @@ const startApp = async () => {
       else console.log('Refreshed product service using app token');
       // LibServices.I18n.saveAll();
     })
-    .catch(err => {
+    .catch(_err => {
       console.log('something went wrong while initializing product service');
     });
 

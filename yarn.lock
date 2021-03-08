@@ -550,10 +550,10 @@
     node-cache "^5.1.0"
     request-promise-native "^1.0.8"
 
-"@nexys/lib@^2.7.5":
-  version "2.7.5"
-  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.7.5.tgz#8ac7071df0545537192007c09d1b821f44b0164e"
-  integrity sha512-sKrgArDTCdky2d0s8zHgIwpLY3L7o74O73t2oGLjr28o8xPMBLeW+rozrQZ+uyKvTB6mPhXT7F/Ytp4dZIowZw==
+"@nexys/lib@^2.7.13":
+  version "2.7.13"
+  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.7.13.tgz#eb1248a7347b828efc0e508cc24422bf2f9bea2f"
+  integrity sha512-4xkYP3mJmeo0nLaJGj5ucezSYp9v03237IpM1j3WCWoANbpfZxHljfTElcTUr6/NXmUZ3KLml/WMN9y60NMD3g==
   dependencies:
     "@nexys/http" "^1.0.0"
     "@nexys/utils" "^3.9.14"
