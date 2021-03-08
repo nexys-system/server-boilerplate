@@ -16,8 +16,12 @@ const profile: T.Profile = {
 };
 
 const mockAuth = LoginService.authenticate as jest.Mock;
-mockAuth.mockImplementation(() => {
+mockAuth.mockImplementationOnce(() => {
   return { permissions, profile };
+});
+
+mockAuth.mockImplementationOnce(() => {
+  throw new Error('myerror');
 });
 
 const myApp = app.listen();
@@ -56,9 +60,6 @@ describe('login endpoints', () => {
     expect(r.status).toEqual(200);
 
     const { token, ...bodyWOToken } = r.body;
-
-    console.log(token);
-
     const { iat, ...decoded } = Config.jwt.verify(token);
 
     expect(typeof iat).toEqual('number');
@@ -70,6 +71,17 @@ describe('login endpoints', () => {
     expect(decoded).toEqual({
       profile,
       permissions
+    });
+  });
+
+  it('should return 400 and login error', async () => {
+    const r = await request
+      .post('/login')
+      .send({ email: 'john@doe.com', password: 'apassword' });
+    expect(r.status).toEqual(400);
+
+    expect(r.body).toEqual({
+      error: 'myerror'
     });
   });
 });

@@ -9,11 +9,17 @@ const router = new Router();
 router.post('/', bodyParser(), checkInputs, async ctx => {
   const { email, password } = ctx.request.body;
 
-  const loginResult = await LoginService.authenticate(email, password);
+  try {
+    const loginResult = await LoginService.authenticate(email, password);
 
-  const jwtToken = Config.jwt.sign(loginResult);
+    const jwtToken = Config.jwt.sign(loginResult);
 
-  ctx.body = { token: jwtToken, ...loginResult };
+    ctx.body = { token: jwtToken, ...loginResult };
+  } catch (err) {
+    ctx.status = 400;
+    ctx.body = { error: err.message };
+    return;
+  }
 });
 
 export default router.routes();
