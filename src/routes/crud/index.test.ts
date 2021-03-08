@@ -30,7 +30,8 @@ beforeAll(async () => {
     firstName: 'John',
     lastName: 'Doe',
     email: 'john@doe.com',
-    lang: 'en'
+    lang: 'en',
+    instance: { uuid: 'my', name: 'instance' }
   };
   const mockAuth = LoginService.authenticate as jest.Mock;
   mockAuth.mockImplementationOnce(() => {
