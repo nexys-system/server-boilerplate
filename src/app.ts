@@ -5,11 +5,13 @@ import LibServices from './product-service';
 
 // routes import
 import Public from './routes/public';
+import Login from './routes/login';
 // end routes import
 
 const app = App();
 
 app.use(Mount('/', Public));
+app.use(Mount('/login', Login));
 app.use(Mount('/product', Routes.default(LibServices as any)));
 
 export default app;

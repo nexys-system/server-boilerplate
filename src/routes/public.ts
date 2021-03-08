@@ -2,10 +2,8 @@ import Router from 'koa-router';
 
 const router = new Router();
 
-const sha = process.env.SHA || 'sha not found in env var';
-
 router.get('/', ctx => {
-  ctx.body = { app: 'boilerplate', sha };
+  ctx.body = { app: 'boilerplate' };
 });
 
 export default router.routes();
