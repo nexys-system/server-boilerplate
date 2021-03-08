@@ -3,7 +3,7 @@ import { Types } from '@nexys/lib';
 import { product, inProd } from './config';
 const { host, token } = product.service;
 
-const libConfig: Types.IInit = {
+const libConfig: Types.Init = {
   host,
   auth: token,
   i18n: {
@@ -11,7 +11,7 @@ const libConfig: Types.IInit = {
   },
   production: inProd
 };
-const init = Lib.init(libConfig);
+const init = Lib(libConfig);
 const subscribe = inProd || false;
 // subscribe to product service
 if (subscribe) {

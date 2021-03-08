@@ -4,7 +4,7 @@ const router = new Router();
 
 const sha = process.env.SHA || 'sha not found in env var';
 
-router.get('/', async ctx => {
+router.get('/', ctx => {
   ctx.body = { app: 'boilerplate', sha };
 });
 
