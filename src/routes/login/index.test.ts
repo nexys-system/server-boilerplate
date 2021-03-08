@@ -2,8 +2,6 @@ import supertest from 'supertest';
 import app from '../../app';
 import LoginService from './login-service';
 import * as T from '@nexys/lib/dist/login/type';
-import * as Config from '../../config';
-import JWT from 'jsonwebtoken';
 
 jest.mock('./login-service');
 
@@ -58,15 +56,18 @@ describe('login endpoints', () => {
     const r = await request
       .post('/login')
       .send({ email: 'john@doe.com', password: 'apassword' });
-    expect(r.status).toEqual(200);
+
+    const cookies = r.header['set-cookie'];
 
     const {
       profile: { id, ...profileWOId },
       permissions
     } = r.body;
 
+    expect(r.status).toEqual(200);
     expect(permissions).toEqual(permissions);
     expect(profileWOId).toEqual(profile);
+    expect(cookies.length).toEqual(2);
   });
 
   it('should return 400 and login error', async () => {

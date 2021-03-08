@@ -13,7 +13,7 @@ const app = App();
 
 app.use(Mount('/', Public));
 app.use(Mount('/login', Login));
-app.use(Mount('/crud', Login));
+app.use(Mount('/crud', Crud));
 app.use(Mount('/product', Routes.default(LibServices as any)));
 
 export default app;
