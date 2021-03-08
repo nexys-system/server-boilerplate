@@ -1,5 +1,4 @@
 require('dotenv').config();
-import * as KL from '@nexys/koa-lib';
 
 export const inProd = process.env.NODE_ENV === 'production';
 
@@ -22,4 +21,4 @@ export const product: { service: { host: string; token: string } } = {
   }
 };
 
-export const jwt = new KL.JWT.default(process.env.JWT_TOKEN);
+export const jwtToken = process.env.JWT_TOKEN;

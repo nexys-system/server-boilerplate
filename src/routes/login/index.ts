@@ -1,8 +1,10 @@
 import Router from 'koa-router';
 import bodyParser from 'koa-body';
-import * as Config from '../../config';
+
 import LoginService from './login-service';
-import { checkInputs } from './middeware';
+import { checkInputs } from './middleware';
+
+import MiddlewareAuth from '../../middleware/auth';
 
 const router = new Router();
 
@@ -10,11 +12,17 @@ router.post('/', bodyParser(), checkInputs, async ctx => {
   const { email, password } = ctx.request.body;
 
   try {
-    const loginResult = await LoginService.authenticate(email, password);
+    const { profile, permissions } = await LoginService.authenticate(
+      email,
+      password
+    );
+    const lang = { id: 1, name: 'en' };
 
-    const jwtToken = Config.jwt.sign(loginResult);
+    const nProfile = { id: profile.uuid, ...profile };
 
-    ctx.body = { token: jwtToken, ...loginResult };
+    return MiddlewareAuth.authOutput(ctx, nProfile, { permissions }, lang, {
+      secure: false
+    });
   } catch (err) {
     ctx.status = 400;
     ctx.body = { error: err.message };

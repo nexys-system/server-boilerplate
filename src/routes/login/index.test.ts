@@ -3,6 +3,7 @@ import app from '../../app';
 import LoginService from './login-service';
 import * as T from '@nexys/lib/dist/login/type';
 import * as Config from '../../config';
+import JWT from 'jsonwebtoken';
 
 jest.mock('./login-service');
 
@@ -59,19 +60,13 @@ describe('login endpoints', () => {
       .send({ email: 'john@doe.com', password: 'apassword' });
     expect(r.status).toEqual(200);
 
-    const { token, ...bodyWOToken } = r.body;
-    const { iat, ...decoded } = Config.jwt.verify(token);
-
-    expect(typeof iat).toEqual('number');
-
-    expect(bodyWOToken).toEqual({
-      profile,
+    const {
+      profile: { id, ...profileWOId },
       permissions
-    });
-    expect(decoded).toEqual({
-      profile,
-      permissions
-    });
+    } = r.body;
+
+    expect(permissions).toEqual(permissions);
+    expect(profileWOId).toEqual(profile);
   });
 
   it('should return 400 and login error', async () => {
