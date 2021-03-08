@@ -11,7 +11,8 @@ const profile: T.Profile = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'john@doe.com',
-  lang: 'en'
+  lang: 'en',
+  instance: { uuid: 'myInstanceUuid', name: 'instance' }
 };
 
 const mockAuth = LoginService.authenticate as jest.Mock;
