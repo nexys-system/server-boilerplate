@@ -40,6 +40,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  lang: string;
   status: { id: number } | UserStatus;
   logDateAdded: Date;
   instance: { uuid: string } | Instance;
