@@ -38,8 +38,8 @@ describe('login endpoints', () => {
     const r = await request.post('/login');
     expect(r.status).toEqual(400);
     expect(r.body).toEqual({
-      email: ['email required'],
-      password: ['password required']
+      email: ['This field is required'],
+      password: ['This field is required']
     });
   });
 
