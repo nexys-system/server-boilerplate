@@ -12,7 +12,7 @@ const router = new Router();
 
 const instance = {
   uuid: process.env.InstanceUuid || '',
-  name: process.env.InstanceName
+  name: process.env.InstanceName || ''
 };
 
 const langDefault = { id: 1, name: 'en' };
