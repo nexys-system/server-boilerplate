@@ -2,13 +2,20 @@ import Router from 'koa-router';
 import bodyParser from 'koa-body';
 
 import LoginService from './login-service';
-import { checkInputs } from './middleware';
+import { checkInputs, isSignupShape } from './middleware';
 
 import MiddlewareAuth from '../../middleware/auth';
 
+import * as LoginType from './type';
+
 const router = new Router();
 
-const instance = { uuid: 'f12f49fa-7b3b-11eb-9846-42010aac0033' };
+const instance = {
+  uuid: process.env.InstanceUuid || '',
+  name: process.env.InstanceName
+};
+
+const langDefault = { id: 1, name: 'en' };
 
 router.post('/', bodyParser(), checkInputs, async ctx => {
   const { email, password } = ctx.request.body;
@@ -19,7 +26,7 @@ router.post('/', bodyParser(), checkInputs, async ctx => {
       password,
       instance
     );
-    const lang = { id: 1, name: 'en' };
+    const lang = langDefault;
 
     const nProfile = { id: profile.uuid, ...profile };
 
@@ -33,18 +40,23 @@ router.post('/', bodyParser(), checkInputs, async ctx => {
   }
 });
 
-router.post('/signup', bodyParser(), async ctx => {
+router.all('/logout', MiddlewareAuth.isAuthenticated(), async ctx => {
+  const profile = ctx.state.profile as LoginType.Profile;
+  MiddlewareAuth.logout(profile, ctx);
+  ctx.body = { message: 'logged out successfully' };
+});
+
+router.post('/signup', bodyParser(), isSignupShape, async ctx => {
+  const { password, ...signupProfile }: LoginType.Signup = ctx.state.signup;
   const profile = {
-    firstName: 'a',
-    lastName: 'l',
-    email: 'a3@gfd.com',
-    lang: 'en',
+    ...signupProfile,
+    lang: langDefault.name,
     instance,
     logDateAdded: new Date()
   };
-  const password = 'mypassing';
+
   try {
-    ctx.body = await LoginService.signup(profile as any, password, ['app']);
+    ctx.body = await LoginService.signup(profile, password, ['app']);
   } catch (err) {
     console.log(err);
     ctx.body = err;

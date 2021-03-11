@@ -23,7 +23,7 @@ router.post(
   '/query',
   bodyParser(),
   Auth.isAuthenticated(),
-  Auth.hasPermission('admin'),
+  Auth.hasPermission('app'),
   async (ctx: Koa.Context) => {
     //const profile: any = ctx.state.profile as LoginType.Profile;
     const query: L.Query.Type.Query = ctx.request.body;
@@ -39,7 +39,7 @@ router.post(
   '/mutate',
   bodyParser(),
   Auth.isAuthenticated(),
-  Auth.hasPermission('admin'),
+  Auth.hasPermission('app'),
   async (ctx: Koa.Context) => {
     //    const profile: any = ctx.state.profile as LoginType.Profile;
     const query: L.Query.Type.Mutate = ctx.request.body;
