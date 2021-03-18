@@ -4,7 +4,6 @@ import bodyParser from 'koa-body';
 import * as L from '@nexys/lib';
 import P from '../../product-service';
 import Auth from '../../middleware/auth';
-import * as LoginType from '../login/type';
 
 const router: Router = new Router();
 
