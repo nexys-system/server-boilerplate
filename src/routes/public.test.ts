@@ -11,12 +11,11 @@ afterAll(async done => {
 });
 
 describe('public endpoint', () => {
-  it('should return 401 without session', async () => {
+  it('should return 200 without session', async () => {
     const r = await request.get('/');
     expect(r.status).toEqual(200);
     expect(r.body).toEqual({
-      app: 'boilerplate',
-      sha: 'mysha'
+      app: 'boilerplate'
     });
   });
 });
