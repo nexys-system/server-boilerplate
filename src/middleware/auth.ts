@@ -2,7 +2,7 @@ import { Middleware } from '@nexys/koa-lib';
 import * as Login from '../routes/login/type';
 import cache from '../services/cache';
 
-import { jwtToken } from '../config';
+import { jwtSecret } from '../config';
 
 // initalises the middleware auth with
 // - `Profile` defines the JWT Profile shape
@@ -10,5 +10,5 @@ import { jwtToken } from '../config';
 // - `cache`reference to the cache
 export default new Middleware.Auth<Login.Profile, Login.UserCache>(
   cache,
-  jwtToken
+  jwtSecret
 );
