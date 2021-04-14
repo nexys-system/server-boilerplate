@@ -1,11 +1,10 @@
 import supertest from 'supertest';
 import app from '../../app';
-import LoginService from '../login/login-service';
-import * as T from '@nexys/lib/dist/login/type';
-import P from '../../product-service';
+import P, { loginService } from '../../product-service';
+import * as T from '@nexys/lib/dist/user-management/type';
+
 import * as L from '@nexys/lib';
 
-jest.mock('../login/login-service');
 jest.mock('../../product-service');
 
 const mockQueryData = P.ProductQuery.dataWithConstraint as jest.Mock;
@@ -33,7 +32,7 @@ beforeAll(async () => {
     lang: 'en',
     instance: { uuid: 'my', name: 'instance' }
   };
-  const mockAuth = LoginService.authenticate as jest.Mock;
+  const mockAuth = loginService.authenticate as jest.Mock;
   mockAuth.mockImplementationOnce(() => {
     return { permissions, profile };
   });

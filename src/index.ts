@@ -6,14 +6,9 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 const subscribe = async () => {
   try {
-    const productService = await LibServices.Product.subscribe(false); // workflow: use true
+    await LibServices.Product.subscribe(false); // workflow: use true
 
-    if (productService.error) {
-      console.error(productService.message);
-    } else {
-      console.log('Refreshed product service using app token');
-      // LibServices.I18n.saveAll();
-    }
+    console.log('Refreshed product service using app token');
   } catch (_err) {
     console.log('something went wrong while initializing product service');
   }

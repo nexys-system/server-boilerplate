@@ -1,8 +1,8 @@
 import Router from 'koa-router';
 import bodyParser from 'koa-body';
 
-import LoginService from './login-service';
-import { checkInputs, isSignupShape } from './middleware';
+import { loginService } from '../../product-service';
+import { checkLogin, isSignupShape } from './validation';
 
 import MiddlewareAuth from '../../middleware/auth';
 
@@ -17,11 +17,11 @@ const instance = {
 
 const langDefault = { id: 1, name: 'en' };
 
-router.post('/', bodyParser(), checkInputs, async ctx => {
+router.post('/', bodyParser(), checkLogin, async ctx => {
   const { email, password } = ctx.request.body;
 
   try {
-    const { profile, permissions } = await LoginService.authenticate(
+    const { profile, permissions } = await loginService.authenticate(
       email,
       password,
       instance
@@ -41,13 +41,13 @@ router.post('/', bodyParser(), checkInputs, async ctx => {
 });
 
 router.all('/logout', MiddlewareAuth.isAuthenticated(), async ctx => {
-  const profile = ctx.state.profile as LoginType.Profile;
+  const profile = ctx.request.body as LoginType.Profile;
   MiddlewareAuth.logout(profile, ctx);
   ctx.body = { message: 'logged out successfully' };
 });
 
 router.post('/signup', bodyParser(), isSignupShape, async ctx => {
-  const { password, ...signupProfile }: LoginType.Signup = ctx.state.signup;
+  const { password, ...signupProfile }: LoginType.Signup = ctx.request.body;
   const profile = {
     ...signupProfile,
     lang: langDefault.name,
@@ -56,7 +56,13 @@ router.post('/signup', bodyParser(), isSignupShape, async ctx => {
   };
 
   try {
-    ctx.body = await LoginService.signup(profile, password, ['app']);
+    const { uuid, token } = await loginService.signup(profile, password, [
+      'app'
+    ]);
+
+    console.log('should send email with ' + token);
+
+    ctx.body = { uuid };
   } catch (err) {
     console.log(err);
     ctx.body = err;
@@ -72,10 +78,7 @@ router.all('/activate', async ctx => {
     return;
   }
 
-  // todo: come up with real challenge
-  const uuid = challenge;
-
-  ctx.body = await LoginService.changeStatus(uuid, instance, 1);
+  ctx.body = await loginService.activate(challenge);
 });
 
 export default router.routes();
