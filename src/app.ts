@@ -7,6 +7,7 @@ import LibServices from './product-service';
 import Public from './routes/public';
 import Login from './routes/login';
 import Crud from './routes/crud';
+import Superadmin from './routes/superadmin';
 // end routes import
 
 const app = App();
@@ -14,6 +15,7 @@ const app = App();
 app.use(Mount('/', Public));
 app.use(Mount('/login', Login));
 app.use(Mount('/crud', Crud));
+app.use(Mount('/superadmin', Superadmin));
 app.use(Mount('/product', Routes.default(LibServices as any)));
 
 export default app;

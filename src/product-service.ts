@@ -24,7 +24,16 @@ const passwordService = new UserManagement.PasswordService(
   init.ProductQuery,
   aesSecret
 );
+const permissionService = new UserManagement.PermissionService(
+  init.ProductQuery
+);
 
-export { loginService, userService, instanceService, passwordService };
+export {
+  loginService,
+  userService,
+  instanceService,
+  passwordService,
+  permissionService
+};
 
 export default init;

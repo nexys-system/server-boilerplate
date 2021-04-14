@@ -562,10 +562,10 @@
   dependencies:
     "@nexys/utils" "^3.9.14"
 
-"@nexys/lib@^2.9.2":
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.2.tgz#c89458db15e9fead21b92850068611457de9977b"
-  integrity sha512-dCOTRJ1u782EaunM/YN7RiZNepUtUj7zP1rb3tllWSO5ubdcn9ic/LgP0BTk22gzcbeZNtbYnrepmQyOgWbUWg==
+"@nexys/lib@^2.9.3":
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.3.tgz#44e04243bef22ca014d4d348e0bdb06c0cbbc4fb"
+  integrity sha512-HVzrDf4N5LVhQfOfb0vdJ1LyDlo73QFMgauzqvQyJoeeO6vCqxKE012+dHQmTnuhC75p9im9UlUHymmcw31IpA==
   dependencies:
     "@nexys/crypto" "^1.0.1"
     "@nexys/http" "^1.0.0"
