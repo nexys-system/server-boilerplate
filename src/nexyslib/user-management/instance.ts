@@ -1,7 +1,7 @@
-import { Uuid } from "@nexys/utils/dist/types";
-import QueryService from "../query/service";
-import * as U from "./utils";
-import * as CT from "./crud-type";
+import { Uuid } from '@nexys/utils/dist/types';
+import QueryService from '../query/service';
+import * as U from './utils';
+import * as CT from './crud-type';
 
 export default class Instance {
   qs: QueryService;
@@ -20,11 +20,11 @@ export default class Instance {
     this.qs.find<CT.Instance>(U.Entity.Instance, { filters: { name } });
 
   insert = async (name: string) => {
-    const row: Omit<CT.Instance, "uuid"> = { name, dateAdded: new Date() };
+    const row: Omit<CT.Instance, 'uuid'> = { name, dateAdded: new Date() };
 
     const r = await this.qs.insertUuid<CT.Instance>(U.Entity.Instance, row);
 
-    return r.uuid;
+    return { uuid: r.uuid };
   };
 
   update = async (uuid: Uuid, name: string): Promise<boolean> => {

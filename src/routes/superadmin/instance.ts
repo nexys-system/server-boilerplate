@@ -23,7 +23,7 @@ router.post(
   MiddlewareAuth.isAuthorized('superadmin'),
   isUuid,
   async ctx => {
-    const { uuid } = ctx.state.body;
+    const { uuid } = ctx.request.body;
     ctx.body = await instanceService.detail(uuid);
   }
 );
@@ -33,7 +33,8 @@ router.post(
   bodyParser(),
   MiddlewareAuth.isAuthorized('superadmin'),
   Validation.isShapeMiddleware({
-    name: {}
+    name: {},
+    dateAdded: { type: 'string' }
   }),
   async ctx => {
     const { name } = ctx.request.body;
@@ -47,10 +48,11 @@ router.post(
   MiddlewareAuth.isAuthorized('superadmin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid },
-    name: {}
+    name: {},
+    dateAdded: { type: 'string' }
   }),
   async ctx => {
-    const { uuid, name } = ctx.state.body;
+    const { uuid, name } = ctx.request.body;
     ctx.body = await instanceService.update(uuid, name);
   }
 );
@@ -63,7 +65,7 @@ router.post(
     uuid: { extraCheck: VU.checkUuid }
   }),
   async ctx => {
-    const { uuid } = ctx.state.body;
+    const { uuid } = ctx.request.body;
 
     ctx.request.body = ctx.body = await instanceService.delete(uuid);
   }
