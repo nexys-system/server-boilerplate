@@ -39,6 +39,41 @@ export default class Permission {
     }));
   };
 
+  listByUserAssigned = async (user: {
+    uuid: Uuid;
+    instance: { uuid: Uuid };
+  }): Promise<(UOptionSet & { assigned?: Uuid })[]> => {
+    const query: QT.Params = {
+      filters: { user },
+      projection: {
+        permissionInstance: { permission: { name: true, uuid: true } }
+      }
+    };
+
+    const permissionList = await this.listByInstance(user.instance);
+
+    const r: {
+      permissionInstance: { permission: UOptionSet };
+      uuid: Uuid;
+    }[] = await this.qs.list(U.Entity.UserPermission, query);
+
+    return permissionList.map(permission => {
+      const y: UOptionSet & { assigned?: Uuid } = {
+        uuid: permission.uuid,
+        name: permission.name
+      };
+
+      const f = r.find(
+        x => x.permissionInstance.permission.uuid === permission.uuid
+      );
+      if (f) {
+        y.assigned = f.uuid;
+      }
+
+      return y;
+    });
+  };
+
   listByInstance = async (instance: {
     uuid: Uuid;
   }): Promise<(UOptionSet & { permissionInstance: { uuid: Uuid } })[]> => {
@@ -140,7 +175,7 @@ export default class Permission {
    */
   assignToUser = (
     uuids: Uuid[],
-    user: { uuid: Uuid; instance: { uuid: Uuid } }
+    user: { uuid: Uuid } //; instance: { uuid: Uuid } } todo for admin permission
   ) => {
     const permissions = uuids.map(uuid => ({
       user,
@@ -149,18 +184,85 @@ export default class Permission {
     return this.qs.insertMultiple(U.Entity.UserPermission, permissions);
   };
 
+  permissionInstanceFromUser = async (
+    permission: { uuid: Uuid },
+    user: { uuid: Uuid }
+  ) => {
+    const {
+      instance
+    }: { instance: { uuid: Uuid } } = await this.qs.find<CT.User>(
+      U.Entity.User,
+      { projection: { instance: true }, filters: { uuid: user.uuid } },
+      true
+    );
+
+    if (!instance) {
+      throw Error('no instance found');
+    }
+
+    console.log(instance);
+
+    console.log({
+      filters: {
+        permission: { uuid: permission.uuid },
+        instance: { uuid: instance.uuid }
+      }
+    });
+
+    // get permissionInstance
+    const permissionInstance = await this.qs.find<CT.PermissionInstance>(
+      U.Entity.PermissionInstance,
+      {
+        filters: {
+          permission,
+          instance
+        }
+      },
+      true
+    );
+
+    if (!permissionInstance) {
+      throw Error('no permission instance found');
+    }
+
+    return permissionInstance;
+  };
+
+  assignToUser2 = async (
+    uuid: Uuid,
+    user: { uuid: Uuid } //; instance: { uuid: Uuid } } todo for admin permission
+  ) => {
+    const permissionInstance = await this.permissionInstanceFromUser(
+      { uuid },
+      user
+    );
+
+    const permissions = {
+      user,
+      permissionInstance: { uuid: permissionInstance.uuid }
+    };
+    return this.qs.insert(U.Entity.UserPermission, permissions);
+  };
+
   /**
    * inverse of above
    * @param uuids
    * @param user
    */
   revokeFromUser = async (
-    uuids: Uuid[],
-    user: { uuid: Uuid; instance: { uuid: Uuid } }
-  ) =>
-    this.qs.delete(U.Entity.UserPermission, {
-      uuid: { $in: uuids, user }
+    uuid: Uuid,
+    user: { uuid: Uuid } //; instance: { uuid: Uuid } }  todo for admin permission
+  ) => {
+    const permissionInstance = await this.permissionInstanceFromUser(
+      { uuid },
+      user
+    );
+
+    return this.qs.delete(U.Entity.UserPermission, {
+      permissionInstance: { uuid: permissionInstance.uuid },
+      user
     });
+  };
 
   assignToUserByNames = async (
     names: string[],
