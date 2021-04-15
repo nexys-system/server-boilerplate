@@ -60,6 +60,40 @@ export default class Permission {
     }));
   };
 
+  listByInstanceAssigned = async (instance: {
+    uuid: Uuid;
+  }): Promise<(UOptionSet & { assigned?: Uuid })[]> => {
+    const query: QT.Params = {
+      filters: { instance },
+      projection: { permission: { name: true, uuid: true } }
+    };
+
+    /*if (names.length > 0) {
+      query.filters.permission = { name: { $in: names } };
+    }*/
+
+    const permissionList = await this.list();
+
+    const r: { permission: UOptionSet; uuid: Uuid }[] = await this.qs.list(
+      U.Entity.PermissionInstance,
+      query
+    );
+
+    return permissionList.map(permission => {
+      const y: UOptionSet & { assigned?: Uuid } = {
+        uuid: permission.uuid,
+        name: permission.name
+      };
+
+      const f = r.find(x => x.permission.uuid === permission.uuid);
+      if (f) {
+        y.assigned = f.uuid;
+      }
+
+      return y;
+    });
+  };
+
   getByNames = async (
     instance: { uuid: Uuid },
     names: string[]
@@ -95,7 +129,8 @@ export default class Permission {
    */
   revokeFromInstance = async (uuids: Uuid[], instance: { uuid: Uuid }) =>
     this.qs.delete(U.Entity.PermissionInstance, {
-      uuid: { $in: uuids, instance }
+      permission: { uuid: { $in: uuids } },
+      instance
     });
 
   /**

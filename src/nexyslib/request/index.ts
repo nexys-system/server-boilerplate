@@ -56,7 +56,7 @@ export const call = async (ctx: Context, resolveResponse = false) => {
   try {
     const response = await fetch.default(url, options);
     const { status, headers } = response;
-    console.log(status, headers);
+
     const body = await getBody(response);
     if (resolveResponse) {
       return { status, body, headers };
