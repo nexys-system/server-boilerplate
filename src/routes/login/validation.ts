@@ -1,4 +1,4 @@
-import Validation, { Type as VT, Utils as VU } from '@nexys/koa-validation';
+import Validation, { Type as VT, Utils as VU } from '@nexys/validation';
 
 const loginShape: VT.Shape = {
   email: { extraCheck: VU.emailCheck },

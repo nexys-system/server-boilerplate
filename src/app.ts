@@ -12,10 +12,10 @@ import Superadmin from './routes/superadmin';
 
 const app = App();
 
-app.use(Mount('/', Public));
 app.use(Mount('/login', Login));
 app.use(Mount('/crud', Crud));
 app.use(Mount('/superadmin', Superadmin));
 app.use(Mount('/product', Routes.default(LibServices as any)));
+app.use(Mount('/', Public));
 
 export default app;

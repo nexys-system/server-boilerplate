@@ -4,7 +4,7 @@ import bodyParser from 'koa-body';
 import { permissionService } from '../../product-service';
 import MiddlewareAuth from '../../middleware/auth';
 import { isUuid } from '../login/validation';
-import Validation, { Utils as VU } from '@nexys/koa-validation';
+import Validation, { Utils as VU } from '@nexys/validation';
 import { Uuid } from '@nexys/utils/dist/types';
 
 const router = new Router();

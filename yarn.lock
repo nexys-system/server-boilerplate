@@ -555,17 +555,10 @@
     node-cache "^5.1.0"
     request-promise-native "^1.0.8"
 
-"@nexys/koa-validation@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@nexys/koa-validation/-/koa-validation-1.0.3.tgz#3a02056327b5b6014ad60136be2998730560cdc2"
-  integrity sha512-PegnUQTigV3esVAIpt/voWQZInA5LSkr/XAEyoTfr0I2SSwMB6KpIQf2EtvhblLf3tnM15WaUjujtw3whed0Eg==
-  dependencies:
-    "@nexys/utils" "^3.9.14"
-
-"@nexys/lib@^2.9.3":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.3.tgz#44e04243bef22ca014d4d348e0bdb06c0cbbc4fb"
-  integrity sha512-HVzrDf4N5LVhQfOfb0vdJ1LyDlo73QFMgauzqvQyJoeeO6vCqxKE012+dHQmTnuhC75p9im9UlUHymmcw31IpA==
+"@nexys/lib@^2.9.4":
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.4.tgz#26f72930f4d917c61c2e20824e48fe6a71c7932f"
+  integrity sha512-Fp2Qqxyp4z13v7PyvDJAQ//XcbDWB9sFFnJ+mqLKFAwCdrN29GyQWfz0gTupIdqqWNV6rbfLy9Y2Lis9mzgWug==
   dependencies:
     "@nexys/crypto" "^1.0.1"
     "@nexys/http" "^1.0.0"
@@ -584,6 +577,13 @@
   version "3.9.14"
   resolved "https://registry.yarnpkg.com/@nexys/utils/-/utils-3.9.14.tgz#db7e3581dd3f15990334842111be35d5aba443ca"
   integrity sha512-ab+iVapztGguPbHaACoNXtn65iWh+hSqNOoKnIQkmldsQ4yUsRpPhs+Us+x2g5A3/ShwxREAz8DMLp0rpYcWig==
+
+"@nexys/validation@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-1.0.12.tgz#bd8f73080a0d77bb626a17af1b1d63b0e164a181"
+  integrity sha512-xMXFNIrpjJZ0yyJWoULkml9Z6KTACgPn7k9dTliHzrKUD2p8RRUxK/4UbFEZGmdxzT81+5Wg5qu1HvceUnc42A==
+  dependencies:
+    "@nexys/utils" "^3.9.14"
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"

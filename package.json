@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@nexys/koa-lib": "^2.3.7",
-    "@nexys/koa-validation": "^1.0.3",
-    "@nexys/lib": "^2.9.3"
+    "@nexys/validation": "^1.0.12",
+    "@nexys/lib": "^2.9.4"
   }
 }

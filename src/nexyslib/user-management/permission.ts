@@ -1,0 +1,171 @@
+import { Uuid } from "@nexys/utils/dist/types";
+import QueryService from "../query/service";
+import * as U from "./utils";
+import { UOptionSet } from "@nexys/utils/dist/types";
+import * as QT from "../query/types";
+import * as CT from "./crud-type";
+
+export default class Permission {
+  qs: QueryService;
+  constructor(qs: QueryService) {
+    this.qs = qs;
+  }
+  permissionNamesByUser = async (uuid: Uuid): Promise<string[]> => {
+    const list = await this.listByUser(uuid);
+
+    return list.map((x) => x.name);
+  };
+
+  listByUser = async (
+    uuid: Uuid
+  ): Promise<(UOptionSet & { userPermission: { uuid: Uuid } })[]> => {
+    const r: {
+      uuid: Uuid;
+      permissionInstance: { permission: { uuid: Uuid; name: string } };
+    }[] = await this.qs.list(U.Entity.UserPermission, {
+      projection: {
+        permissionInstance: {
+          permission: { uuid: true, name: true },
+          uuid: true,
+        },
+      },
+      filters: { user: { uuid } },
+    });
+
+    return r.map((x) => ({
+      uuid: x.permissionInstance.permission.uuid,
+      name: x.permissionInstance.permission.name,
+      userPermission: { uuid: x.uuid },
+    }));
+  };
+
+  listByInstance = async (instance: {
+    uuid: Uuid;
+  }): Promise<(UOptionSet & { permissionInstance: { uuid: Uuid } })[]> => {
+    const query: QT.Params = {
+      filters: { instance },
+      projection: { permission: { name: true, uuid: true } },
+    };
+
+    /*if (names.length > 0) {
+      query.filters.permission = { name: { $in: names } };
+    }*/
+
+    const r = await this.qs.list(U.Entity.PermissionInstance, query);
+
+    return r.map((x) => ({
+      uuid: x.permission.uuid,
+      name: x.permission.name,
+      permissionInstance: { uuid: x.uuid },
+    }));
+  };
+
+  getByNames = async (
+    instance: { uuid: Uuid },
+    names: string[]
+  ): Promise<(UOptionSet & { permissionInstance: { uuid: Uuid } })[]> => {
+    if (names.length === 0) {
+      throw Error(
+        "you must indicate at least one permission. If what's expected is all permissions, user listbyInstance"
+      );
+    }
+
+    const l = await this.listByInstance(instance);
+
+    return l.filter((x) => names.includes(x.name));
+  };
+
+  /**
+   *
+   * @param uuids : these are permission uuids
+   * @param user: user and uuid
+   */
+  assignToInstance = (uuids: Uuid[], instance: { uuid: Uuid }) => {
+    const permissions = uuids.map((uuid) => ({
+      instance,
+      permission: { uuid },
+    }));
+    return this.qs.insertMultiple(U.Entity.PermissionInstance, permissions);
+  };
+
+  /**
+   * inverse of above
+   * @param uuids
+   * @param user
+   */
+  revokeFromInstance = async (uuids: Uuid[], instance: { uuid: Uuid }) =>
+    this.qs.delete(U.Entity.PermissionInstance, {
+      uuid: { $in: uuids, instance },
+    });
+
+  /**
+   *
+   * @param uuids : these are "instance permission" uuids
+   * @param user: user and uuid
+   */
+  assignToUser = (
+    uuids: Uuid[],
+    user: { uuid: Uuid; instance: { uuid: Uuid } }
+  ) => {
+    const permissions = uuids.map((uuid) => ({
+      user,
+      permissionInstance: { uuid },
+    }));
+    return this.qs.insertMultiple(U.Entity.UserPermission, permissions);
+  };
+
+  /**
+   * inverse of above
+   * @param uuids
+   * @param user
+   */
+  revokeFromUser = async (
+    uuids: Uuid[],
+    user: { uuid: Uuid; instance: { uuid: Uuid } }
+  ) =>
+    this.qs.delete(U.Entity.UserPermission, {
+      uuid: { $in: uuids, user },
+    });
+
+  assignToUserByNames = async (
+    names: string[],
+    user: { uuid: Uuid; instance: { uuid: Uuid } }
+  ) => {
+    const permissions = await this.getByNames(user.instance, names);
+    const permissionUuids: Uuid[] = permissions.map(
+      (x) => x.permissionInstance.uuid
+    );
+    return this.assignToUser(permissionUuids, user);
+  };
+
+  // general permissions (no conditions, superadmin functionalities)
+
+  list = async () => this.qs.list<CT.Permission>(U.Entity.Permission);
+
+  detail = async (uuid: Uuid) =>
+    this.qs.detail<CT.Permission>(U.Entity.Permission, uuid);
+
+  insert = async (name: string) => {
+    const row: Omit<CT.Permission, "uuid"> = { name };
+
+    const r = await this.qs.insertUuid<CT.Permission>(U.Entity.Permission, row);
+
+    return r.uuid;
+  };
+
+  update = async (uuid: Uuid, name: string): Promise<boolean> => {
+    const r = await this.qs.update<CT.Permission>(
+      U.Entity.Permission,
+      { uuid },
+      { name }
+    );
+
+    return r.success;
+  };
+
+  delete = async (uuid: Uuid): Promise<boolean> => {
+    const r = await this.qs.delete(U.Entity.Permission, { uuid });
+
+    return r.success;
+  };
+}

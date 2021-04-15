@@ -20,11 +20,13 @@ const langDefault = { id: 1, name: 'en' };
 router.post('/', bodyParser(), checkLogin, async ctx => {
   const { email, password } = ctx.request.body;
 
+  console.log(instance);
+
   try {
     const { profile, permissions } = await loginService.authenticate(
       email,
       password,
-      instance
+      { uuid: instance.uuid }
     );
     const lang = langDefault;
 

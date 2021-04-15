@@ -1,4 +1,5 @@
-import Lib, { UserManagement } from '@nexys/lib';
+import Lib, { UserManagement } from './nexyslib';
+//import * as UserManagement from '@nexys/lib';
 
 import { product, inProd, jwtToken } from './config';
 const { token } = product;
@@ -11,6 +12,12 @@ if (subscribe) {
     console.log('Subscribe output: ' + JSON.stringify(x));
   });
 }
+
+/*const exec = async () => {
+  const r = await init.ProductQuery.data({ User: { take: 10 } });
+  console.log(r);
+};
+exec();*/
 
 const aesSecret = 'fneusjwfBShfhwudhglkfnQQbnjkbd65';
 
