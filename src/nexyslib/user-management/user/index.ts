@@ -1,10 +1,11 @@
-import { Uuid } from "@nexys/utils/dist/types";
-import QueryService from "../query/service";
-import * as U from "./utils";
-import * as T from "./type";
-import * as CT from "./crud-type";
-import { UOptionSet } from "@nexys/utils/dist/types";
-import PermissionService from "./permission";
+import { Uuid } from '@nexys/utils/dist/types';
+import QueryService from '../../query/service';
+import * as U from '../utils';
+import * as T from '../type';
+import * as CT from '../crud-type';
+import { UOptionSet } from '@nexys/utils/dist/types';
+import PermissionService from '../permission';
+import * as Status from './status';
 
 export default class User {
   qs: QueryService;
@@ -30,7 +31,7 @@ export default class User {
       lang,
       status,
       instance,
-      UserAuthentication,
+      UserAuthentication
     }: {
       uuid: Uuid;
       firstName: string;
@@ -46,10 +47,10 @@ export default class User {
         lastName: true,
         lang: true,
         status: true,
-        instance: { uuid: true, name: true },
+        instance: { uuid: true, name: true }
       },
-      filters: { email, instance: { uuid: instanceIn?.uuid || "" } },
-      references: { [U.Entity.UserAuthentication]: {} },
+      filters: { email, instance: { uuid: instanceIn?.uuid || '' } },
+      references: { [U.Entity.UserAuthentication]: {} }
     });
 
     const profile = { uuid, firstName, lastName, email, lang, instance };
@@ -73,7 +74,7 @@ export default class User {
       );
 
       const userAuthentication = UserAuthentication?.find(
-        (x) => x.type.id === U.userAuthenticationPasswordId
+        x => x.type.id === U.userAuthenticationPasswordId
       );
 
       if (!userAuthentication) {
@@ -86,10 +87,10 @@ export default class User {
         profile,
         status,
         hashedPassword,
-        auth: { uuid: userAuthentication.uuid },
+        auth: { uuid: userAuthentication.uuid }
       };
     } catch (err) {
-      throw Error("no user could be found with email: " + email);
+      throw Error('no user could be found with email: ' + email);
     }
   };
 
@@ -120,13 +121,13 @@ export default class User {
   };
 
   insertByProfile = async (
-    profile: Omit<T.Profile, "uuid">,
+    profile: Omit<T.Profile, 'uuid'>,
     statusId: T.Status = T.Status.pending
   ): Promise<{ uuid: Uuid }> => {
-    const row: Omit<CT.User, "uuid"> = {
+    const row: Omit<CT.User, 'uuid'> = {
       ...profile,
       status: { id: statusId },
-      logDateAdded: new Date(),
+      logDateAdded: new Date()
     };
 
     const r = await this.qs.insertUuid(U.Entity.User, row);
@@ -138,11 +139,11 @@ export default class User {
     value: string,
     typeId: number = U.userAuthenticationPasswordId
   ): Promise<{ uuid: string }> => {
-    const row: Omit<CT.UserAuthentication, "uuid"> = {
+    const row: Omit<CT.UserAuthentication, 'uuid'> = {
       type: { id: typeId },
       user: { uuid },
       isEnabled: true,
-      value,
+      value
     };
 
     const r = await this.qs.insertUuid(U.Entity.UserAuthentication, row);
@@ -154,23 +155,28 @@ export default class User {
 
   list = async (instance: { uuid: Uuid }): Promise<CT.User[]> => {
     const r = await this.qs.list<CT.User>(U.Entity.User, {
-      filters: { instance },
+      filters: { instance }
     });
 
-    return r;
+    return r.map(x => {
+      return {
+        ...x,
+        status: { id: x.status.id, name: Status.statusToLabel(x.status.id) }
+      };
+    });
   };
 
   detail = async (uuid: Uuid, instance: { uuid: Uuid }): Promise<CT.User> => {
     const r = await this.qs.detail<CT.User>(U.Entity.User, uuid);
 
     if (!r || r.instance.uuid !== instance.uuid) {
-      throw Error("user could not be found");
+      throw Error('user could not be found');
     }
 
     return r;
   };
 
-  insert = async (row: Omit<CT.User, "uuid">): Promise<string> => {
+  insert = async (row: Omit<CT.User, 'uuid'>): Promise<string> => {
     const r = await this.qs.insertUuid(U.Entity.User, row);
 
     return r.uuid;

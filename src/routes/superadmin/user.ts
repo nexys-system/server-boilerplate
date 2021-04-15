@@ -11,13 +11,11 @@ type Profile = Pick<CT.User, 'firstName' | 'lastName' | 'email' | 'lang'>;
 
 const router = new Router();
 
-router.get(
+router.post(
   '/list',
   bodyParser(),
   MiddlewareAuth.isAuthorized('superadmin'),
-  Validation.isShapeMiddleware({
-    instance: { uuid: { extraCheck: VU.checkUuid } }
-  }),
+  Validation.isShapeMiddleware({ uuid: { extraCheck: VU.checkUuid } }),
   async ctx => {
     const { instance } = ctx.request.body;
     ctx.body = await userService.list(instance);
@@ -33,7 +31,7 @@ router.post(
     instance: { uuid: { extraCheck: VU.checkUuid } }
   }),
   async ctx => {
-    const { uuid, instance } = ctx.state.body;
+    const { uuid, instance } = ctx.request.body;
     ctx.body = await userService.detail(uuid, instance);
   }
 );
@@ -80,7 +78,7 @@ router.post(
     }: {
       uuid: Uuid;
       instance: { uuid: Uuid };
-    } & Partial<Profile> = ctx.state.body;
+    } & Partial<Profile> = ctx.request.body;
     ctx.body = await userService.update(uuid, profile); // todo add instance!
   }
 );
@@ -93,7 +91,7 @@ router.post(
     uuid: { extraCheck: VU.checkUuid }
   }),
   async ctx => {
-    const { uuid } = ctx.state.body;
+    const { uuid } = ctx.request.body;
 
     ctx.request.body = ctx.body = await userService.delete(uuid);
   }
