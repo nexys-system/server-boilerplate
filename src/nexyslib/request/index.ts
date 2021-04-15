@@ -47,8 +47,6 @@ export const compile = (
     timeout
   };
 
-  console.log(options, url);
-
   return { url: url + queryString, options };
 };
 

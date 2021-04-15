@@ -1,4 +1,4 @@
-import { Id, Uuid } from "@nexys/utils/dist/types";
+import { Id, Uuid } from '@nexys/utils/dist/types';
 
 export interface User {
   uuid: Uuid;
@@ -38,6 +38,7 @@ export interface Instance {
 export interface Permission {
   uuid: Uuid;
   name: string;
+  description?: string;
 }
 
 export interface UserPermission {

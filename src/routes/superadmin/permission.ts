@@ -24,7 +24,8 @@ router.post(
   MiddlewareAuth.isAuthorized('superadmin'),
   isUuid,
   async ctx => {
-    const { uuid } = ctx.state.body;
+    const { uuid } = ctx.request.body;
+
     ctx.body = await permissionService.detail(uuid);
   }
 );
@@ -48,11 +49,16 @@ router.post(
   MiddlewareAuth.isAuthorized('superadmin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid },
-    name: {}
+    name: {},
+    description: { optional: true }
   }),
   async ctx => {
-    const { uuid, name }: { uuid: Uuid; name: string } = ctx.state.body;
-    ctx.body = await permissionService.update(uuid, name);
+    const {
+      uuid,
+      name,
+      description
+    }: { uuid: Uuid; name: string; description?: string } = ctx.request.body;
+    ctx.body = await permissionService.update(uuid, name, description);
   }
 );
 
@@ -64,7 +70,7 @@ router.post(
     uuid: { extraCheck: VU.checkUuid }
   }),
   async ctx => {
-    const { uuid }: { uuid: Uuid } = ctx.state.body;
+    const { uuid }: { uuid: Uuid } = ctx.request.body;
 
     ctx.request.body = ctx.body = await permissionService.delete(uuid);
   }

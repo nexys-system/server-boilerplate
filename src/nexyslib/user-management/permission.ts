@@ -1,9 +1,9 @@
-import { Uuid } from "@nexys/utils/dist/types";
-import QueryService from "../query/service";
-import * as U from "./utils";
-import { UOptionSet } from "@nexys/utils/dist/types";
-import * as QT from "../query/types";
-import * as CT from "./crud-type";
+import { Uuid } from '@nexys/utils/dist/types';
+import QueryService from '../query/service';
+import * as U from './utils';
+import { UOptionSet } from '@nexys/utils/dist/types';
+import * as QT from '../query/types';
+import * as CT from './crud-type';
 
 export default class Permission {
   qs: QueryService;
@@ -13,7 +13,7 @@ export default class Permission {
   permissionNamesByUser = async (uuid: Uuid): Promise<string[]> => {
     const list = await this.listByUser(uuid);
 
-    return list.map((x) => x.name);
+    return list.map(x => x.name);
   };
 
   listByUser = async (
@@ -26,16 +26,16 @@ export default class Permission {
       projection: {
         permissionInstance: {
           permission: { uuid: true, name: true },
-          uuid: true,
-        },
+          uuid: true
+        }
       },
-      filters: { user: { uuid } },
+      filters: { user: { uuid } }
     });
 
-    return r.map((x) => ({
+    return r.map(x => ({
       uuid: x.permissionInstance.permission.uuid,
       name: x.permissionInstance.permission.name,
-      userPermission: { uuid: x.uuid },
+      userPermission: { uuid: x.uuid }
     }));
   };
 
@@ -44,7 +44,7 @@ export default class Permission {
   }): Promise<(UOptionSet & { permissionInstance: { uuid: Uuid } })[]> => {
     const query: QT.Params = {
       filters: { instance },
-      projection: { permission: { name: true, uuid: true } },
+      projection: { permission: { name: true, uuid: true } }
     };
 
     /*if (names.length > 0) {
@@ -53,10 +53,10 @@ export default class Permission {
 
     const r = await this.qs.list(U.Entity.PermissionInstance, query);
 
-    return r.map((x) => ({
+    return r.map(x => ({
       uuid: x.permission.uuid,
       name: x.permission.name,
-      permissionInstance: { uuid: x.uuid },
+      permissionInstance: { uuid: x.uuid }
     }));
   };
 
@@ -72,7 +72,7 @@ export default class Permission {
 
     const l = await this.listByInstance(instance);
 
-    return l.filter((x) => names.includes(x.name));
+    return l.filter(x => names.includes(x.name));
   };
 
   /**
@@ -81,9 +81,9 @@ export default class Permission {
    * @param user: user and uuid
    */
   assignToInstance = (uuids: Uuid[], instance: { uuid: Uuid }) => {
-    const permissions = uuids.map((uuid) => ({
+    const permissions = uuids.map(uuid => ({
       instance,
-      permission: { uuid },
+      permission: { uuid }
     }));
     return this.qs.insertMultiple(U.Entity.PermissionInstance, permissions);
   };
@@ -95,7 +95,7 @@ export default class Permission {
    */
   revokeFromInstance = async (uuids: Uuid[], instance: { uuid: Uuid }) =>
     this.qs.delete(U.Entity.PermissionInstance, {
-      uuid: { $in: uuids, instance },
+      uuid: { $in: uuids, instance }
     });
 
   /**
@@ -107,9 +107,9 @@ export default class Permission {
     uuids: Uuid[],
     user: { uuid: Uuid; instance: { uuid: Uuid } }
   ) => {
-    const permissions = uuids.map((uuid) => ({
+    const permissions = uuids.map(uuid => ({
       user,
-      permissionInstance: { uuid },
+      permissionInstance: { uuid }
     }));
     return this.qs.insertMultiple(U.Entity.UserPermission, permissions);
   };
@@ -124,7 +124,7 @@ export default class Permission {
     user: { uuid: Uuid; instance: { uuid: Uuid } }
   ) =>
     this.qs.delete(U.Entity.UserPermission, {
-      uuid: { $in: uuids, user },
+      uuid: { $in: uuids, user }
     });
 
   assignToUserByNames = async (
@@ -133,7 +133,7 @@ export default class Permission {
   ) => {
     const permissions = await this.getByNames(user.instance, names);
     const permissionUuids: Uuid[] = permissions.map(
-      (x) => x.permissionInstance.uuid
+      x => x.permissionInstance.uuid
     );
     return this.assignToUser(permissionUuids, user);
   };
@@ -146,18 +146,22 @@ export default class Permission {
     this.qs.detail<CT.Permission>(U.Entity.Permission, uuid);
 
   insert = async (name: string) => {
-    const row: Omit<CT.Permission, "uuid"> = { name };
+    const row: Omit<CT.Permission, 'uuid'> = { name };
 
     const r = await this.qs.insertUuid<CT.Permission>(U.Entity.Permission, row);
 
-    return r.uuid;
+    return { uuid: r.uuid };
   };
 
-  update = async (uuid: Uuid, name: string): Promise<boolean> => {
+  update = async (
+    uuid: Uuid,
+    name: string,
+    description?: string
+  ): Promise<boolean> => {
     const r = await this.qs.update<CT.Permission>(
       U.Entity.Permission,
       { uuid },
-      { name }
+      { name, description }
     );
 
     return r.success;
