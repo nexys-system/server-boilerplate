@@ -111,4 +111,21 @@ router.post(
   }
 );
 
+router.post(
+  '/status/change',
+  bodyParser(),
+  MiddlewareAuth.isAuthorized('superadmin'),
+  Validation.isShapeMiddleware({
+    uuid: { extraCheck: VU.checkUuid },
+    status: { id: { type: 'number', extraCheck: VU.checkId } }
+  }),
+  async ctx => {
+    const {
+      uuid,
+      status
+    }: { uuid: Uuid; status: { id: Id } } = ctx.request.body;
+    ctx.body = await userService.changeStatus(uuid, status.id);
+  }
+);
+
 export default router.routes();

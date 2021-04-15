@@ -1,9 +1,9 @@
-import { Uuid } from "@nexys/utils/dist/types";
-import QueryService from "../query/service";
-import UserService from "./user";
-import * as U from "./password/utils";
-import * as T from "./type";
-import * as A from "./action-payload";
+import { Uuid } from '@nexys/utils/dist/types';
+import QueryService from '../query/service';
+import UserService from './user';
+import * as U from './password/utils';
+import * as T from './type';
+import * as A from './action-payload';
 
 export default class Login {
   userService: UserService;
@@ -21,7 +21,7 @@ export default class Login {
     const {
       profile,
       status,
-      hashedPassword,
+      hashedPassword
     } = await this.userService.getUserByEmailWithPassword(email, instance);
 
     if (status.id !== T.Status.active) {
@@ -40,7 +40,7 @@ export default class Login {
   };
 
   signup = async (
-    profile: Omit<T.Profile, "uuid">,
+    profile: Omit<T.Profile, 'uuid'>,
     password: string,
     permissions: string[] = []
   ): Promise<{ uuid: Uuid; authentication: { uuid: Uuid }; token: string }> => {
@@ -56,14 +56,14 @@ export default class Login {
     // add permisions
     this.userService.permissionService.assignToUserByNames(permissions, {
       uuid,
-      instance: { uuid: profile.instance.uuid },
+      instance: { uuid: profile.instance.uuid }
     });
 
     // create token to be able to send email and then change status
     const token = A.createActionPayload(
       uuid,
       { uuid: profile.instance.uuid },
-      "SET_ACTIVE",
+      'SET_ACTIVE',
       this.secretKey
     );
 
@@ -77,9 +77,9 @@ export default class Login {
     const { uuid, instance } = A.decryptPayload(
       token,
       this.secretKey,
-      "SET_ACTIVE"
+      'SET_ACTIVE'
     );
 
-    return this.userService.changeStatus(uuid, instance, T.Status.active);
+    return this.userService.changeStatusAdmin(uuid, instance, T.Status.active);
   };
 }

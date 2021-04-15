@@ -96,6 +96,20 @@ export default class User {
 
   changeStatus = async (
     uuid: Uuid,
+    status: T.Status = T.Status.active
+  ): Promise<boolean> => {
+    const r = await this.qs.update(U.Entity.User, { uuid }, { status });
+    return r.success;
+  };
+
+  /**
+   * for admin, instance rquired
+   * @param uuid
+   * @param status
+   * @returns
+   */
+  changeStatusAdmin = async (
+    uuid: Uuid,
     instance: { uuid: Uuid },
     status: T.Status = T.Status.active
   ): Promise<boolean> => {
