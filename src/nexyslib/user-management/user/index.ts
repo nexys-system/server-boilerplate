@@ -190,10 +190,10 @@ export default class User {
     return r;
   };
 
-  insert = async (row: Omit<CT.User, 'uuid'>): Promise<string> => {
+  insert = async (row: Omit<CT.User, 'uuid'>): Promise<{ uuid: Uuid }> => {
     const r = await this.qs.insertUuid(U.Entity.User, row);
 
-    return r.uuid;
+    return { uuid: r.uuid };
   };
 
   update = async (uuid: Uuid, row: Partial<CT.User>): Promise<boolean> => {

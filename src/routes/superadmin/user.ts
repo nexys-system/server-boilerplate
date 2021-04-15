@@ -63,21 +63,16 @@ router.post(
   MiddlewareAuth.isAuthorized('superadmin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid },
-    instance: { uuid: { extraCheck: VU.checkUuid } },
     firstName: {},
     lastName: {},
-    email: { extraCheck: VU.emailCheck },
-    status: { id: { type: 'number' } },
-    lang: {}
+    email: { extraCheck: VU.emailCheck }
   }),
   async ctx => {
     const {
       uuid,
-      instance,
       ...profile
     }: {
       uuid: Uuid;
-      instance: { uuid: Uuid };
     } & Partial<Profile> = ctx.request.body;
     ctx.body = await userService.update(uuid, profile); // todo add instance!
   }
