@@ -43,7 +43,7 @@ router.post('/', bodyParser(), checkLogin, async ctx => {
 });
 
 router.all('/logout', MiddlewareAuth.isAuthenticated(), async ctx => {
-  const profile = ctx.request.body as LoginType.Profile;
+  const profile = ctx.state.profile as LoginType.Profile;
   MiddlewareAuth.logout(profile, ctx);
   ctx.body = { message: 'logged out successfully' };
 });

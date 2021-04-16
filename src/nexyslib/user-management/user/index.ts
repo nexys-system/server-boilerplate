@@ -196,10 +196,13 @@ export default class User {
     return { uuid: r.uuid };
   };
 
-  update = async (uuid: Uuid, row: Partial<CT.User>): Promise<boolean> => {
+  update = async (
+    uuid: Uuid,
+    row: Partial<CT.User>
+  ): Promise<{ success: boolean }> => {
     const r = await this.qs.update(U.Entity.User, { uuid }, row);
 
-    return r.success;
+    return r;
   };
 
   delete = async (uuid: Uuid): Promise<boolean> => {

@@ -1,10 +1,10 @@
-import { Uuid } from "@nexys/utils/dist/types";
-import QueryService from "../../query/service";
-import * as U from "./utils";
-import * as UU from "../utils";
-import * as CT from "../crud-type";
-import UserService from "../user";
-import * as A from "../action-payload";
+import { Uuid } from '@nexys/utils/dist/types';
+import QueryService from '../../query/service';
+import * as U from './utils';
+import * as UU from '../utils';
+import * as CT from '../crud-type';
+import UserService from '../user';
+import * as A from '../action-payload';
 
 export default class Password {
   qs: QueryService;
@@ -29,19 +29,22 @@ export default class Password {
     password: string,
     instance: { uuid: Uuid },
     oldPassword?: string
-  ): Promise<boolean> => {
+  ): Promise<{ success: boolean }> => {
     const userFilter = { uuid, instance };
+
     const userAuth: CT.UserAuthentication = await this.qs.find(
       UU.Entity.UserAuthentication,
       {
         filters: {
-          user: { userFilter, type: { id: UU.userAuthenticationPasswordId } },
-        },
+          user: userFilter,
+          type: { id: UU.userAuthenticationPasswordId }
+        }
       }
     );
 
+    console.log(userAuth);
     if (oldPassword && !U.matchPassword(oldPassword, userAuth.value)) {
-      throw Error("the old password is not correct");
+      throw Error('the old password is not correct');
     }
 
     const value = U.hashPassword(password);
@@ -52,7 +55,7 @@ export default class Password {
       { value }
     );
 
-    return r.success;
+    return r;
   };
 
   /**
@@ -66,7 +69,7 @@ export default class Password {
     return A.createActionPayload(
       user.profile.uuid,
       { uuid: user.profile.instance.uuid },
-      "RESET_PASSWORD",
+      'RESET_PASSWORD',
       this.secretKey
     );
   };
@@ -74,7 +77,7 @@ export default class Password {
   resetPassword = async (
     password: string,
     encrypted: string
-  ): Promise<boolean> => {
+  ): Promise<{ success: boolean }> => {
     const { uuid, instance } = A.decryptPayload(encrypted, this.secretKey);
 
     return this.setPassword(uuid, password, instance);
@@ -87,7 +90,7 @@ export default class Password {
     return A.createActionPayload(
       uuid,
       instance,
-      "CHANGE_EMAIL",
+      'CHANGE_EMAIL',
       this.secretKey
     );
   };
