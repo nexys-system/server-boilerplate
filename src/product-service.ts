@@ -35,12 +35,17 @@ const permissionService = new UserManagement.PermissionService(
   init.ProductQuery
 );
 
+const userAuthenticationService = new UserManagement.UserAuthentication(
+  init.ProductQuery
+);
+
 export {
   loginService,
   userService,
   instanceService,
   passwordService,
-  permissionService
+  permissionService,
+  userAuthenticationService
 };
 
 export default init;

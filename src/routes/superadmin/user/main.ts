@@ -1,12 +1,12 @@
 import Router from 'koa-router';
 import bodyParser from 'koa-body';
 
-import { userService } from '../../product-service';
-import MiddlewareAuth from '../../middleware/auth';
+import { userService } from '../../../product-service';
+import MiddlewareAuth from '../../../middleware/auth';
 import Validation, { Utils as VU } from '@nexys/validation';
 import { Uuid, Id } from '@nexys/utils/dist/types';
 
-import * as CT from '../../services/crud/type';
+import * as CT from '../../../services/crud/type';
 type Profile = Pick<CT.User, 'firstName' | 'lastName' | 'email' | 'lang'>;
 
 const router = new Router();
