@@ -11,15 +11,15 @@ const router = new Router();
 router.post(
   '/list',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     uuid: {
       extraCheck: VU.checkUuid
-    },
-    instance: { uuid: { extraCheck: VU.checkUuid } }
+    }
   }),
   async ctx => {
-    const { uuid, instance } = ctx.request.body;
+    const { uuid } = ctx.request.body;
+    const { instance } = ctx.state.profile;
     ctx.body = await permissionService.listByUserAssigned({ uuid, instance });
   }
 );
@@ -27,7 +27,7 @@ router.post(
 router.post(
   '/toggle',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     user: { uuid: { extraCheck: VU.checkUuid } },
     permission: { uuid: { extraCheck: VU.checkUuid } },
