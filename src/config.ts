@@ -10,8 +10,8 @@ if (!process.env.APP_TOKEN) {
   throw Error('you must set "APP_TOKEN" in env var (.env)');
 }
 
-if (!process.env.JWT_TOKEN) {
-  throw Error('you must set "JWT_TOKEN" in env var (.env)');
+if (!process.env.JWT_SECRET) {
+  throw Error('you must set "JWT_SECRET" in env var (.env)');
 }
 
 export const product: { host: string; token: string } = {
@@ -19,4 +19,4 @@ export const product: { host: string; token: string } = {
   token: process.env.APP_TOKEN
 };
 
-export const jwtToken = process.env.JWT_TOKEN;
+export const jwtSecret = process.env.JWT_SECRET;
