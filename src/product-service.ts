@@ -1,7 +1,7 @@
-import Lib, { UserManagement } from './nexyslib';
+import Lib, { UserManagement } from '@nexys/lib';
 //import * as UserManagement from '@nexys/lib';
 
-import { product, inProd, jwtToken } from './config';
+import { product, inProd } from './config';
 const { token } = product;
 
 const init = Lib({ authToken: token });
