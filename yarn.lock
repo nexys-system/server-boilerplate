@@ -515,6 +515,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@nexys/crypto@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@nexys/crypto/-/crypto-1.0.1.tgz#63ffec54977f58a0d16cd5428a686577f04fcb76"
+  integrity sha512-31aHPuUKZeO+AhQBiUsI9NF49IFqPAY3leUDokLN8WP2Tubu4FVp4j8K8jWC/vzpXvXFgBmp7ZCe37sHXdeuDQ==
+
 "@nexys/http@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@nexys/http/-/http-1.0.0.tgz#d3e12d375adb7e4491f806ec16a82f973b42618d"
@@ -550,26 +555,35 @@
     node-cache "^5.1.0"
     request-promise-native "^1.0.8"
 
-"@nexys/lib@^2.7.13":
-  version "2.7.13"
-  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.7.13.tgz#eb1248a7347b828efc0e508cc24422bf2f9bea2f"
-  integrity sha512-4xkYP3mJmeo0nLaJGj5ucezSYp9v03237IpM1j3WCWoANbpfZxHljfTElcTUr6/NXmUZ3KLml/WMN9y60NMD3g==
+"@nexys/lib@^2.9.5":
+  version "2.9.5"
+  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.5.tgz#f743f5631940d57646c5e10bd66c447d3602264a"
+  integrity sha512-hCx9GCcJmPwr+gGDynN/YGWtUVjkzNy+H2HKp6lwg4xADGPA4KeVB12wqcmK+HdmwNedZpoSN65dhgQf96bF8g==
   dependencies:
+    "@nexys/crypto" "^1.0.1"
     "@nexys/http" "^1.0.0"
     "@nexys/utils" "^3.9.14"
     "@types/bcryptjs" "^2.4.2"
     "@types/jsonwebtoken" "^8.3.8"
     "@types/node" "^14.0.9"
-    "@types/request-promise-native" "^1.0.17"
+    "@types/node-fetch" "^2.5.10"
     bcryptjs "^2.4.3"
     dotenv "^8.1.0"
     graphql "^15.4.0"
     jsonwebtoken "^8.5.1"
+    node-fetch "^2.6.1"
 
 "@nexys/utils@^3.9.13", "@nexys/utils@^3.9.14":
   version "3.9.14"
   resolved "https://registry.yarnpkg.com/@nexys/utils/-/utils-3.9.14.tgz#db7e3581dd3f15990334842111be35d5aba443ca"
   integrity sha512-ab+iVapztGguPbHaACoNXtn65iWh+hSqNOoKnIQkmldsQ4yUsRpPhs+Us+x2g5A3/ShwxREAz8DMLp0rpYcWig==
+
+"@nexys/validation@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-1.0.13.tgz#9d3ded42779385bd1cf634029f5afff8f31eb3f0"
+  integrity sha512-yaj+e1CbXCIDx4Yk5Xw+dI7RSVeExjOWY32rMeUgkONdOLzk8mC59CMc7ZY8eB+e+BTZGy+A+zI/NnwrbOTOvQ==
+  dependencies:
+    "@nexys/utils" "^3.9.14"
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
@@ -842,6 +856,14 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
   integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
+
+"@types/node-fetch@^2.5.10":
+  version "2.5.10"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.10.tgz#9b4d4a0425562f9fcea70b12cb3fcdd946ca8132"
+  integrity sha512-IpkX0AasN44hgEad0gEF/V6EgR5n69VEqPEgnmoM8GsIGro3PowbWs4tR6IhxUTyPLpOn+fiGG6nrQhcmoCuIQ==
+  dependencies:
+    "@types/node" "*"
+    form-data "^3.0.0"
 
 "@types/node@*", "@types/node@^14.0.27", "@types/node@^14.0.9":
   version "14.11.1"
@@ -3357,6 +3379,11 @@ node-cleanup@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/node-cleanup/-/node-cleanup-2.1.2.tgz#7ac19abd297e09a7f72a71545d951b517e4dde2c"
   integrity sha1-esGavSl+Caf3KnFUXZUbUX5N3iw=
+
+node-fetch@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-int64@^0.4.0:
   version "0.4.0"

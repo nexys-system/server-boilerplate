@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "watch": "PORT=3001 tsc-watch --onSuccess \"node ./dist/index.js\"",
-    "test": "JWT_SECRET=myjwtsecret PRODUCT_HOST=pro APP_TOKEN=token jest src",
+    "test": "JWT_SECRET=myjwt PRODUCT_HOST=pro APP_TOKEN=token jest src",
     "build": "tsc"
   },
   "author": "Nexys Sarl",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@nexys/koa-lib": "^2.3.7",
-    "@nexys/lib": "^2.7.13"
+    "@nexys/validation": "^1.0.13",
+    "@nexys/lib": "^2.9.5"
   }
 }

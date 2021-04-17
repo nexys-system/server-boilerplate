@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import app from '../../app';
-import LoginService from './login-service';
-import * as T from '@nexys/lib/dist/login/type';
+import { loginService as LoginService } from '../../product-service';
+import * as T from '@nexys/lib/dist/user-management/type';
 
-jest.mock('./login-service');
+jest.mock('../../product-service');
 
 const permissions = ['app', 'admin'];
 const profile: T.Profile = {
