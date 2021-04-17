@@ -11,13 +11,12 @@ type Profile = Pick<CT.User, 'firstName' | 'lastName' | 'email' | 'lang'>;
 
 const router = new Router();
 
-router.post(
+router.all(
   '/list',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
-  Validation.isShapeMiddleware({ uuid: { extraCheck: VU.checkUuid } }),
+  MiddlewareAuth.isAuthorized('admin'),
   async ctx => {
-    const instance = ctx.request.body;
+    const { instance } = ctx.state.profile;
     ctx.body = await userService.list(instance);
   }
 );
@@ -25,13 +24,13 @@ router.post(
 router.post(
   '/detail',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
-    uuid: { extraCheck: VU.checkUuid },
-    instance: { uuid: { extraCheck: VU.checkUuid } }
+    uuid: { extraCheck: VU.checkUuid }
   }),
   async ctx => {
-    const { uuid, instance } = ctx.request.body;
+    const { uuid } = ctx.request.body;
+    const { instance } = ctx.state.profile;
     ctx.body = await userService.detail(uuid, instance);
   }
 );
@@ -39,28 +38,32 @@ router.post(
 router.post(
   '/insert',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     firstName: {},
     lastName: {},
     email: { extraCheck: VU.emailCheck },
-    instance: { uuid: { extraCheck: VU.checkUuid } },
+
     status: { id: { type: 'number' } },
     lang: {}
   }),
   async ctx => {
     const user: Profile & {
-      instance: { uuid: Uuid };
       status: { id: Id };
     } = ctx.request.body;
-    ctx.body = await userService.insert({ ...user, logDateAdded: new Date() });
+    const { instance } = ctx.state.profile;
+    ctx.body = await userService.insert({
+      ...user,
+      instance,
+      logDateAdded: new Date()
+    });
   }
 );
 
 router.post(
   '/update',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid },
     firstName: {},
@@ -81,7 +84,7 @@ router.post(
 router.post(
   '/delete',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid }
   }),
@@ -93,23 +96,9 @@ router.post(
 );
 
 router.post(
-  '/exists',
-  bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
-  Validation.isShapeMiddleware({
-    email: { extraCheck: VU.emailCheck },
-    instance: { uuid: { extraCheck: VU.checkUuid } }
-  }),
-  async ctx => {
-    const { name } = ctx.request.body;
-    ctx.body = await userService.getByEmail(name);
-  }
-);
-
-router.post(
   '/status/change',
   bodyParser(),
-  MiddlewareAuth.isAuthorized('superadmin'),
+  MiddlewareAuth.isAuthorized('admin'),
   Validation.isShapeMiddleware({
     uuid: { extraCheck: VU.checkUuid },
     status: { id: { type: 'number', extraCheck: VU.checkId } }
