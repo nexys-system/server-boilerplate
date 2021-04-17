@@ -2,7 +2,7 @@ import Router from 'koa-router';
 import bodyParser from 'koa-body';
 
 import MiddlewareAuth from '../../middleware/auth';
-import Validation, { Utils as VU } from '@nexys/validation';
+import Validation from '@nexys/validation';
 
 import { userService, passwordService } from '../../product-service';
 
