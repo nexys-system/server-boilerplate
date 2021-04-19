@@ -24,8 +24,8 @@
     "typescript": "3.9.3"
   },
   "dependencies": {
-    "@nexys/koa-lib": "^2.3.7",
+    "@nexys/koa-lib": "^2.5.1",
     "@nexys/validation": "^1.0.13",
-    "@nexys/lib": "^2.9.5"
+    "@nexys/lib": "^2.9.6"
   }
 }
