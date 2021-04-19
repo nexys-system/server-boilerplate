@@ -5,20 +5,18 @@ import LibServices from './product-service';
 
 // routes import
 import Public from './routes/public';
-import Login from './routes/login';
-import Profile from './routes/profile';
 import Crud from './routes/crud';
-import Superadmin from './routes/superadmin';
-import Admin from './routes/admin';
+import { admin, login, profile, superadmin } from './routes/user-management';
+
 // end routes import
 
 const app = App();
 
-app.use(Mount('/login', Login));
-app.use(Mount('/profile', Profile));
+app.use(Mount('/login', login));
+app.use(Mount('/profile', profile));
 app.use(Mount('/crud', Crud));
-app.use(Mount('/superadmin', Superadmin));
-app.use(Mount('/admin', Admin));
+app.use(Mount('/superadmin', superadmin));
+app.use(Mount('/admin', admin));
 app.use(Mount('/product', Routes.default(LibServices as any)));
 app.use(Mount('/', Public));
 

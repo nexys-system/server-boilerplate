@@ -1,9 +1,9 @@
-import Lib, { UserManagement } from '@nexys/lib';
+import Lib, { UserManagement } from '@nexys/lib'; //'/srv/@nexys-lib/dist';
 
 import { product, inProd } from './config';
 const { token } = product;
 
-const init = Lib({ authToken: token });
+const init = Lib({ authToken: token, host: 'https://flow-dev.nexys.io' });
 const subscribe = inProd || false;
 // subscribe to product service
 if (subscribe) {
@@ -32,7 +32,17 @@ const userAuthenticationService = new UserManagement.UserAuthentication(
   init.ProductQuery
 );
 
+const services = {
+  loginService,
+  userService,
+  instanceService,
+  passwordService,
+  permissionService,
+  userAuthenticationService
+};
+
 export {
+  services,
   loginService,
   userService,
   instanceService,
