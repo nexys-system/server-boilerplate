@@ -1,4 +1,5 @@
-import { App, Routes } from '@nexys/koa-lib';
+import { App } from '@nexys/koa-lib';
+import RouteProduct from '@nexys/koa-lib/dist/routes/product';
 import Mount from 'koa-mount';
 
 import LibServices from './product-service';
@@ -17,7 +18,7 @@ app.use(Mount('/profile', profile));
 app.use(Mount('/crud', Crud));
 app.use(Mount('/superadmin', superadmin));
 app.use(Mount('/admin', admin));
-app.use(Mount('/product', Routes.default(LibServices as any)));
+app.use(Mount('/product', RouteProduct(LibServices as any)));
 app.use(Mount('/', Public));
 
 export default app;
