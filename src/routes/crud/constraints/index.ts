@@ -1,5 +1,6 @@
 import * as L from '@nexys/lib';
 import { Role } from '../../../common/generated/role';
+import Model from '../../../common/generated/schema';
 
 const getSuperadmin = () => {
   const data: L.Query.Type.QueryConstraint = {
@@ -15,14 +16,34 @@ const getSuperadmin = () => {
   return { data, mutate };
 };
 
+const instanceUuid = process.env.InstanceUuid || '';
+
+// filter on instance and linked entities
 const getAdmin = () => {
+  const filterConstraints: [string, L.Query.Type.FilterConstraint[]][] = [
+    ['Instance', [{ attribute: 'uuid', filterAttribute: instanceUuid }]]
+  ];
+
+  Model.forEach(entity => {
+    const { fields } = entity;
+
+    const f = fields.find(x => x.type === 'Instance');
+
+    if (f) {
+      filterConstraints.push([
+        entity.name,
+        [
+          {
+            attribute: 'instance',
+            filterAttribute: { uuid: instanceUuid }
+          }
+        ]
+      ]);
+    }
+  });
+
   const data: L.Query.Type.QueryConstraint = {
-    filterConstraintsMap: new Map([
-      [
-        'Instance',
-        [{ attribute: 'uuid', filterAttribute: process.env.InstanceUuid || '' }]
-      ]
-    ]),
+    filterConstraintsMap: new Map(filterConstraints),
     projectionConstraintsMap: new Map()
   };
 
