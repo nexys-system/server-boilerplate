@@ -49,13 +49,16 @@ afterAll(async () => {
 
 describe('crud query endpoint', () => {
   it('should return 401', async () => {
-    const r = await request.post('/crud/query').send({});
+    const r = await request.post('/crud/query/app').send({});
 
     expect(r.status).toEqual(401);
   });
 
   it('should return 200 ', async () => {
-    const r = await request.post('/crud/query').send({}).set('Cookie', cookies);
+    const r = await request
+      .post('/crud/query/app')
+      .send({})
+      .set('Cookie', cookies);
 
     expect(r.status).toEqual(200);
   });
@@ -63,7 +66,7 @@ describe('crud query endpoint', () => {
 
 describe('crud mutate endpoint', () => {
   it('should return 401', async () => {
-    const r = await request.post('/crud/query').send({});
+    const r = await request.post('/crud/query/app').send({});
 
     expect(r.status).toEqual(401);
   });
@@ -73,7 +76,10 @@ describe('crud mutate endpoint', () => {
       User: { insert: { data: { name: 'fds' } } }
     };
 
-    const r = await request.post('/crud/mutate').send(q).set('Cookie', cookies);
+    const r = await request
+      .post('/crud/mutate/app')
+      .send(q)
+      .set('Cookie', cookies);
 
     expect(r.status).toEqual(200);
   });
