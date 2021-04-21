@@ -1,50 +1,30 @@
 import * as L from '@nexys/lib';
-import { Role } from '../../../common/generated/role';
-import Model from '../../../common/generated/schema';
+import {
+  Role,
+  roleKeys,
+  constraintsProjection
+} from '../../../common/generated/role';
+import { Constraint } from './type';
+import { getSuperadmin, getApp, getAdmin } from './default-constraints';
 
-const getSuperadmin = () => {
-  const data: L.Query.Type.QueryConstraint = {
-    filterConstraintsMap: new Map(),
-    projectionConstraintsMap: new Map()
-  };
+const getConstraintByRole = (r: Role): Constraint => {
+  if (r === Role.admin) {
+    return getAdmin();
+  }
 
-  const mutate: L.Query.Type.MutateConstraint = {
-    filterConstraintsMap: new Map(),
-    dataConstraintsMap: new Map(),
-    append: {}
-  };
-  return { data, mutate };
-};
+  if (r === Role.superadmin) {
+    return getSuperadmin();
+  }
 
-const instanceUuid = process.env.InstanceUuid || '';
+  if (r === Role.app) {
+    return getApp();
+  }
 
-// filter on instance and linked entities
-const getAdmin = () => {
-  const filterConstraints: [string, L.Query.Type.FilterConstraint[]][] = [
-    ['Instance', [{ attribute: 'uuid', filterAttribute: instanceUuid }]]
-  ];
-
-  Model.forEach(entity => {
-    const { fields } = entity;
-
-    const f = fields.find(x => x.type === 'Instance');
-
-    if (f) {
-      filterConstraints.push([
-        entity.name,
-        [
-          {
-            attribute: 'instance',
-            filterAttribute: { uuid: instanceUuid }
-          }
-        ]
-      ]);
-    }
-  });
+  const projectionConstraints = constraintsProjection.get(r) || [];
 
   const data: L.Query.Type.QueryConstraint = {
-    filterConstraintsMap: new Map(filterConstraints),
-    projectionConstraintsMap: new Map()
+    filterConstraintsMap: new Map([]),
+    projectionConstraintsMap: new Map(projectionConstraints)
   };
 
   const mutate: L.Query.Type.MutateConstraint = {
@@ -55,31 +35,8 @@ const getAdmin = () => {
   return { data, mutate };
 };
 
-// todo here user
-// todo2: generate these when logging in, upon refresh token get the newest set
-const getApp = () => {
-  const data: L.Query.Type.QueryConstraint = {
-    filterConstraintsMap: new Map([
-      [
-        'Instance',
-        [{ attribute: 'uuid', filterAttribute: process.env.InstanceUuid || '' }]
-      ]
-    ]),
-    projectionConstraintsMap: new Map()
-  };
-
-  const mutate: L.Query.Type.MutateConstraint = {
-    filterConstraintsMap: new Map(),
-    dataConstraintsMap: new Map(),
-    append: { instance: { uuid: process.env.instanceUuid } }
-  };
-  return { data, mutate };
-};
-
-export const constraintsByRole = new Map([
-  [Role.superadmin, getSuperadmin()],
-  [Role.admin, getAdmin()],
-  [Role.app, getApp()]
-]);
+export const constraintsByRole = new Map(
+  roleKeys.map(r => [r, getConstraintByRole(r)])
+);
 
 export default constraintsByRole;

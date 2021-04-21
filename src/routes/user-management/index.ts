@@ -14,7 +14,6 @@ const instance = {
 };
 
 const admin = Admin(services, MiddlewareAuth);
-
 const login = Login(services, MiddlewareAuth, instance);
 const profile = Profile(services, MiddlewareAuth);
 const superadmin = Superadmin(services, MiddlewareAuth);
