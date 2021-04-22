@@ -1,6 +1,13 @@
 import * as L from '@nexys/lib';
 import Model from '../../../common/generated/schema';
-import { Constraint } from './type';
+import { Constraint, Profile } from './type';
+
+const defaultAppend = ({ uuid, instance }: Profile) => ({
+  instance,
+  user: { uuid },
+  logUser: { uuid },
+  logDateAdded: new Date()
+});
 
 export const getSuperadmin = () => {
   const data: L.Query.Type.QueryConstraint = {
@@ -11,20 +18,21 @@ export const getSuperadmin = () => {
   const mutate: L.Query.Type.MutateConstraint = {
     filterConstraintsMap: new Map(),
     dataConstraintsMap: new Map(),
-    append: {}
+    append: {} //defaultAppend(user, instance)
   };
   return { data, mutate };
 };
 
-const instanceUuid = process.env.InstanceUuid || '';
-
 // filter on instance and linked entities
-export const getAdmin = (): Constraint => {
+export const getAdmin = (profile: Profile): Constraint => {
   const c: [string, L.Query.Type.ProjectionConstraint[]][] = [
     ['Permission', [{ attribute: 'name' }]]
   ];
   const filterConstraints: [string, L.Query.Type.FilterConstraint[]][] = [
-    ['Instance', [{ attribute: 'uuid', filterAttribute: instanceUuid }]]
+    [
+      'Instance',
+      [{ attribute: 'uuid', filterAttribute: profile.instance.uuid }]
+    ]
   ];
 
   Model.forEach(entity => {
@@ -38,7 +46,7 @@ export const getAdmin = (): Constraint => {
         [
           {
             attribute: 'instance',
-            filterAttribute: { uuid: instanceUuid }
+            filterAttribute: profile.instance
           }
         ]
       ]);
@@ -53,19 +61,19 @@ export const getAdmin = (): Constraint => {
   const mutate: L.Query.Type.MutateConstraint = {
     filterConstraintsMap: new Map(),
     dataConstraintsMap: new Map(),
-    append: { instance: { uuid: process.env.instanceUuid } }
+    append: defaultAppend(profile)
   };
   return { data, mutate };
 };
 
 // todo here user
 // todo2: generate these when logging in, upon refresh token get the newest set
-export const getApp = (): Constraint => {
+export const getApp = (profile: Profile): Constraint => {
   const data: L.Query.Type.QueryConstraint = {
     filterConstraintsMap: new Map([
       [
         'Instance',
-        [{ attribute: 'uuid', filterAttribute: process.env.InstanceUuid || '' }]
+        [{ attribute: 'uuid', filterAttribute: profile.instance.uuid }]
       ]
     ]),
     projectionConstraintsMap: new Map()
@@ -74,7 +82,7 @@ export const getApp = (): Constraint => {
   const mutate: L.Query.Type.MutateConstraint = {
     filterConstraintsMap: new Map(),
     dataConstraintsMap: new Map(),
-    append: { instance: { uuid: process.env.instanceUuid } }
+    append: defaultAppend(profile)
   };
   return { data, mutate };
 };

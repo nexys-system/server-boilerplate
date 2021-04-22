@@ -20,7 +20,7 @@ export const middlewareRoleExists = async (
   }
 
   // make sure the useer is authenticated
-  const { userCache } = ctx.state;
+  const { userCache, profile } = ctx.state;
   // and has the permission of value `role`
   if (
     !userCache ||
@@ -33,8 +33,12 @@ export const middlewareRoleExists = async (
     return;
   }
 
+  if (!profile) {
+    throw Error('profile not defined');
+  }
+
   // get the constraints associated with the role
-  const constraints = Constraints.get(rIdx);
+  const constraints = Constraints(profile).get(rIdx);
 
   if (!constraints) {
     ctx.body = { error: 'no constraints associated with this role' };

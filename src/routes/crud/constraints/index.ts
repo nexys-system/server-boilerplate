@@ -4,12 +4,12 @@ import {
   roleKeys,
   constraintsProjection
 } from '../../../common/generated/role';
-import { Constraint } from './type';
+import { Constraint, Profile } from './type';
 import { getSuperadmin, getApp, getAdmin } from './default-constraints';
 
-const getConstraintByRole = (r: Role): Constraint => {
+const getConstraintByRole = (r: Role, profile: Profile): Constraint => {
   if (r === Role.admin) {
-    return getAdmin();
+    return getAdmin(profile);
   }
 
   if (r === Role.superadmin) {
@@ -17,7 +17,7 @@ const getConstraintByRole = (r: Role): Constraint => {
   }
 
   if (r === Role.app) {
-    return getApp();
+    return getApp(profile);
   }
 
   const projectionConstraints = constraintsProjection.get(r) || [];
@@ -35,8 +35,7 @@ const getConstraintByRole = (r: Role): Constraint => {
   return { data, mutate };
 };
 
-export const constraintsByRole = new Map(
-  roleKeys.map(r => [r, getConstraintByRole(r)])
-);
+export const constraintsByRole = (profile: Profile) =>
+  new Map(roleKeys.map(r => [r, getConstraintByRole(r, profile)]));
 
 export default constraintsByRole;
