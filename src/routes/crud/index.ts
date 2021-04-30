@@ -6,6 +6,7 @@ import P from '../../product-service';
 import Auth from '../../middleware/auth';
 
 import { middlewareRoleExists } from './utils';
+import model from '../../common/generated/schema';
 
 const router: Router = new Router();
 
@@ -24,7 +25,11 @@ router.post(
       };
     };
 
-    ctx.body = await P.ProductQuery.dataWithConstraint(query, constraints.data);
+    ctx.body = await P.ProductQuery.dataWithConstraint(
+      query,
+      constraints.data,
+      model
+    );
   }
 );
 

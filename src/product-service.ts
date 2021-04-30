@@ -1,9 +1,9 @@
-import Lib, { UserManagement } from '@nexys/lib'; //'/srv/@nexys-lib/dist';
-
+import Lib, { UserManagement } from '@nexys/lib';
 import { product, inProd } from './config';
+
 const { token } = product;
 
-const init = Lib({ authToken: token, host: 'https://flow-dev.nexys.io' });
+const init = Lib({ authToken: token, host: 'https://flow.nexys.io' });
 const subscribe = inProd || false;
 // subscribe to product service
 if (subscribe) {
@@ -12,6 +12,7 @@ if (subscribe) {
   });
 }
 
+// this should be unique by project and should be regenerated
 const aesSecret = 'fneusjwfBShfhwudhglkfnQQbnjkbd65';
 
 const loginService = new UserManagement.LoginService(

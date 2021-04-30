@@ -487,10 +487,10 @@
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-"@nexys/koa-lib@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@nexys/koa-lib/-/koa-lib-2.5.1.tgz#c2d9c382d758ec915cd29a5959b1e12042746f51"
-  integrity sha512-LHCpIzWJ5IE+M2W2EyywMiVkEQHHZ4fzJ1b2yFp08XlYLDTZgxatUsFaRWOK9G0qOCKUZJP38DUzrAH5VjQkig==
+"@nexys/koa-lib@^2.5.3":
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@nexys/koa-lib/-/koa-lib-2.5.3.tgz#0a38f8568981787ca99e93981fd6e8877dc9a72d"
+  integrity sha512-BCOc/50fx6lZEB+3RjCanav7bBG1SBiqFoy/ua94ic6x13pEmS6X6m0yEnilIgZlIrBkan4DBuXORiqiLOZrhA==
   dependencies:
     "@nexys/http" "^1.0.0"
     "@nexys/utils" "^3.9.13"
@@ -514,10 +514,10 @@
     node-cache "^5.1.0"
     request-promise-native "^1.0.8"
 
-"@nexys/lib@^2.9.7":
-  version "2.9.7"
-  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.7.tgz#e09883a48554bb4967154f1d829e557caf0c3a6c"
-  integrity sha512-hPMzQE5Cjaau6TfDfSgsK5PyRl01SUC23yjkC3Xk4egtGxUf/+Bj/tnkrlYDrucfhtpsoGu7ghEFHMHo2sos+w==
+"@nexys/lib@^2.9.11":
+  version "2.9.11"
+  resolved "https://registry.yarnpkg.com/@nexys/lib/-/lib-2.9.11.tgz#7d3e053c6557d9055120a6c91eb4b55404109156"
+  integrity sha512-ViE6UoPqqFZP4aSiv5IASe82nb64bGN4PlizcRLVrj5T9j5fqKFUuuEGGsKLGt72j7KSNS6HbWfs16i5fJtDEQ==
   dependencies:
     "@nexys/crypto" "^1.0.1"
     "@nexys/http" "^1.0.0"
