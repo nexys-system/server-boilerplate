@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set env var
-        run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/master)" >> $GITHUB_ENV
+        run: echo "DOCKERHUB_URL=$(echo ghcr.io/${GITHUB_REPOSITORY,,}/${{ github.event.repository.name }})" >> $GITHUB_ENV
       - name: see env
         run: echo $DOCKERHUB_URL
       - name: Login to DockerHub Registry
