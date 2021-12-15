@@ -1,26 +1,34 @@
-import { App } from '@nexys/koa-lib';
-import RouteProduct from '@nexys/koa-lib/dist/routes/product';
-import Mount from 'koa-mount';
+import App from '@nexys/core/dist/app';
+import Router from 'koa-router';
 
-import LibServices from './product-service';
+import userManagementRoutes from './routes/user-management';
 
-// routes import
-import Public from './routes/public';
-import Crud from './routes/crud';
-import GraphQL from './routes/graphql';
-import { admin, login, profile, superadmin } from './routes/user-management';
+// replace crud with graphql
+import CrudRoutes from './routes/crud';
+import PublicRoutes from './routes/public';
 
-// end routes import
+import * as Product from './product';
 
 const app = App();
+const router = new Router();
 
-app.use(Mount('/login', login));
-app.use(Mount('/profile', profile));
-app.use(Mount('/crud', Crud));
-app.use(Mount('/graphql', GraphQL));
-app.use(Mount('/superadmin', superadmin));
-app.use(Mount('/admin', admin));
-app.use(Mount('/product', RouteProduct(LibServices as any)));
-app.use(Mount('/', Public));
+router.get('/email', async ctx => {
+  await Product.email.findAndSend(
+    '8f6a163e-bf8c-11ea-90f0-42010aac0009',
+    'johan@nexys.ch',
+    { link: 'http://hgfds.com' }
+  );
+  ctx.body = { hello: 'fd' };
+});
+
+router.use(userManagementRoutes);
+router.use('/crud', CrudRoutes);
+router.use(PublicRoutes);
+
+router.get('/', ctx => {
+  ctx.body = { hello: 'world' };
+});
+
+app.use(router.routes());
 
 export default app;

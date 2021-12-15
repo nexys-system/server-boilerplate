@@ -1,22 +1,57 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+import JWT from 'jsonwebtoken';
 
-export const inProd = process.env.NODE_ENV === 'production';
+import { get } from '@nexys/core/dist/context';
+import { printAppToken } from '@nexys/core/dist/context/utils';
+import { AppTokenDecoded } from '@nexys/core/dist/context/type';
 
-if (!process.env.PRODUCT_HOST) {
-  throw Error('you must set "PRODUCT_HOST" in env var (.env)');
-}
+import * as FetchR from '@nexys/fetchr';
 
-if (!process.env.APP_TOKEN) {
-  throw Error('you must set "APP_TOKEN" in env var (.env)');
-}
+dotenv.config();
 
-if (!process.env.JWT_SECRET) {
-  throw Error('you must set "JWT_SECRET" in env var (.env)');
-}
-
-export const product: { host: string; token: string } = {
-  host: process.env.PRODUCT_HOST,
-  token: process.env.APP_TOKEN
+// init fetchr
+export const database: FetchR.Database.Type.Database = {
+  username: process.env.DATABASE_USER || '',
+  host: process.env.DATABASE_HOST || '',
+  password: process.env.DATABASE_PASSWORD || '',
+  database: process.env.DATABASE_NAME || '',
+  port: 3306
 };
 
-export const jwtSecret = process.env.JWT_SECRET;
+export const instance = {
+  name: process.env.INSTANCE_NAME || '',
+  uuid: process.env.INSTANCE_UUID || ''
+};
+
+const errorPrefix = '[CONFIGURATION] ';
+
+if (process.env.SECRET === undefined) {
+  throw Error(errorPrefix + 'SECRET is undefined');
+}
+
+export const secretKey = process.env.SECRET; //
+
+if (secretKey.length !== 32) {
+  throw Error(errorPrefix + 'key must be 32 bytes for aes256');
+}
+
+if (process.env.APP_TOKEN === undefined) {
+  throw Error(errorPrefix + 'APP TOKEN is undefined');
+}
+
+export const appToken = process.env.APP_TOKEN;
+
+//try {
+export const decodedAppToken: AppTokenDecoded = JWT.decode(
+  appToken
+) as AppTokenDecoded;
+
+console.log(printAppToken(decodedAppToken));
+
+// get context
+export const context = get(
+  { uuid: decodedAppToken.instance },
+  { id: decodedAppToken.product },
+  decodedAppToken.env,
+  appToken
+);
