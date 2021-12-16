@@ -1,6 +1,6 @@
 {
   "name": "@nexys-system/server-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server boilerplate using @nexys/core",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,6 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@nexys/core": "^0.2.1"
+    "@nexys/core": "^0.2.2"
   }
 }
