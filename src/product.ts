@@ -2,7 +2,7 @@ import * as FetchR from '@nexys/fetchr';
 
 import ProductService from '@nexys/core/dist/product';
 import QueryService from '@nexys/core/dist/query/service';
-import Cache from '@nexys/core/dist/cache/local';
+import Cache from '@nexys/node-cache';
 
 import * as Config from './config';
 import model from './model';
