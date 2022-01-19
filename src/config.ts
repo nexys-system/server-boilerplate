@@ -11,7 +11,7 @@ dotenv.config();
 
 // init fetchr
 export const database: FetchR.Database.Type.Database = {
-  username: process.env.DATABASE_USER || '',
+  username: process.env.DATABASE_USERNAME || '',
   host: process.env.DATABASE_HOST || '',
   password: process.env.DATABASE_PASSWORD || '',
   database: process.env.DATABASE_NAME || '',
