@@ -1,6 +1,7 @@
 import App from '@nexys/core/dist/app';
 import Router from 'koa-router';
 
+import MetaRoutes from '@nexys/core/dist/routes/product/meta';
 import userManagementRoutes from './routes/user-management';
 
 // replace crud with graphql
@@ -21,6 +22,7 @@ router.get('/email', async ctx => {
   ctx.body = { hello: 'fd' };
 });
 
+router.use('/meta', MetaRoutes());
 router.use(userManagementRoutes);
 router.use('/crud', CrudRoutes);
 router.use(PublicRoutes);
