@@ -1,6 +1,6 @@
 import CrudRoutes from '@nexys/core/dist/routes/crud';
 import P from '../product';
-import model from '../model';
+import model from '../common/generated';
 
 const crudRoutes = new CrudRoutes(model, P.qs, P.middlewareAuth);
 
