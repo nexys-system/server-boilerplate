@@ -15,7 +15,7 @@ export const database: FetchR.Database.Type.Database = {
   host: process.env.DATABASE_HOST || '',
   password: process.env.DATABASE_PASSWORD || '',
   database: process.env.DATABASE_NAME || '',
-  port: 3306
+  port: Number(process.env.DATABASE_PORT) || 3306
 };
 
 export const instance = {
