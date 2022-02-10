@@ -5,7 +5,7 @@ import QueryService from '@nexys/core/dist/query/service';
 import Cache from '@nexys/node-cache';
 
 import * as Config from './config';
-import model from './model';
+import model from './common/generated';
 
 import WorkflowService from '@nexys/core/dist/services/workflow';
 import EmailService from '@nexys/core/dist/services/email';
