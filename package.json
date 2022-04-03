@@ -23,6 +23,6 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@nexys/core": "^0.3.5"
+    "@nexys/core": "^0.4.2"
   }
 }
