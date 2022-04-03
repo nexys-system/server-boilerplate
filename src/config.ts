@@ -10,7 +10,7 @@ import * as FetchR from '@nexys/fetchr';
 dotenv.config();
 
 // init fetchr
-export const database: FetchR.Database.Type.Database = {
+export const database: FetchR.Database.Connection.ConnectionOptions = {
   user: process.env.DATABASE_USERNAME || '',
   host: process.env.DATABASE_HOST || '',
   password: process.env.DATABASE_PASSWORD || '',
