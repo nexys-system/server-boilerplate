@@ -18,6 +18,30 @@ yarn
 yarn watch
 ```
 
+Note: that the CI Node version is set to 17.If your build fails locally try to change your node version to the one used in the CI.
+
+### Sync with Nexys.io
+
+#### Get the Environment Variables
+
+```
+yarn getEnvVar
+```
+
+You will then be prompted for a token. You can generate the token in the nexys.io platform on top the of the env var panel (in the service of interest)
+
+A `.env` file will be generated with the environment variables. Note that if you are using a database, you need to tick the option when configuring the service and the database env var will be added automatically.
+
+#### Get the Assets
+
+```
+yarn getAssets
+```
+
+This will fetch the data model, the submodels, roles, option sets, api requests, and workflows.
+
+Note: this command can only be run if you have the environment variables and an `APP-TOKEN`.
+
 ## Deployment
 
 A docker is generated upon new version creation, see https://github.com/nexys-system/server-boilerplate/releases
