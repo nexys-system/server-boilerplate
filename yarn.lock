@@ -486,18 +486,18 @@
   resolved "https://registry.yarnpkg.com/@nexys/api-request/-/api-request-0.0.1.tgz#88e121a87032f08cebe5ad07ed80802178bdfd51"
   integrity sha512-2NEhkeKP6s1Icfh6DDBueugFwPuCuib92OyDUQ6+KR5UdN2kL2NmizltaatNs3ugeESoSRlV2SA3zzFsoLctag==
 
-"@nexys/core@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@nexys/core/-/core-0.4.2.tgz#af6114bcd0236457c81e3f027d6545fe90825a2d"
-  integrity sha512-Vkix0QMg39dG55I/syOCMOoXIpk7bryNQbEb75OdxthzJ0J/92ZDJXXUV6aD5oaQ8QZSI3hSXCngmqB/PxRn4A==
+"@nexys/core@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@nexys/core/-/core-1.0.8.tgz#265be1659e777891c0a296eb4d4b3680b3c557f9"
+  integrity sha512-P8Q7Ez2Ed5KgNiNFWdcTDTXrpklP+FX5nV4y5dQXyYWDigJN4LNfCCiT+f2gZvKFGMkO6VM6ndw0jnyi1x34CQ==
   dependencies:
     "@nexys/api-request" "^0.0.1"
     "@nexys/crypto" "^1.0.4"
-    "@nexys/fetchr" "^0.5.0"
+    "@nexys/fetchr" "^0.5.3"
     "@nexys/http" "^1.0.0"
     "@nexys/node-cache" "^0.0.1"
     "@nexys/utils" "^3.9.14"
-    "@nexys/validation" "^2.1.3"
+    "@nexys/validation" "^2.1.4"
     "@nexys/workflow" "^0.0.9"
     "@types/bcryptjs" "^2.4.2"
     "@types/graphql-fields" "^1.3.4"
@@ -527,10 +527,10 @@
   resolved "https://registry.yarnpkg.com/@nexys/crypto/-/crypto-1.0.4.tgz#087ea960516ca3fee810fd3ea51002db22e07c3f"
   integrity sha512-acsLzzudQyXKDQ5enym9XTpR2u1cey7qjdRjtNf58wP20SSR6h6iRuLLWy9ALIBfwURY0DUe13QY9aD2woDsGw==
 
-"@nexys/fetchr@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@nexys/fetchr/-/fetchr-0.5.0.tgz#f89b72f639474832a119c605a0c7dc86a22808c1"
-  integrity sha512-WCjcxVHlcz7J7iALXuhz4oed7EbihHq5/zyeIqutPg79FVF3FXYMCBL0f2aT66wy2O0QDnC8vRqLY+QYszp/AQ==
+"@nexys/fetchr@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@nexys/fetchr/-/fetchr-0.5.3.tgz#38bd32703097097c30abbb848a69c88885620aa7"
+  integrity sha512-kyEApIiiLXMG4e4H3jOBq74LNglYonNgE76YDbsZy8url+6rGpw8HTTeGv8VHJY455jNB7vriUVYI1g1rzejFA==
   dependencies:
     "@nexys/validation" "^2.1.0"
     "@types/sqlstring" "^2.3.0"
@@ -563,10 +563,10 @@
   dependencies:
     "@nexys/utils" "^3.9.14"
 
-"@nexys/validation@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-2.1.3.tgz#d09874dd5cb7e1e46ae8038bef5b49c9f5858350"
-  integrity sha512-nsn7KnCAYTOLiA+Hbm3SUa5AIAuO9VqVh/xvlAMFqKhQ9mIggSKqh/3L1p88cRQVYIb59BETJpKRm60umQ8zyQ==
+"@nexys/validation@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-2.1.4.tgz#99e55f385f90810d5704edc55cb9b27f4ef631bb"
+  integrity sha512-BkGNcV8WWBRGJJm3+KG/oU7gj/0TSfvaJ30nIfukzISsh+p8jk6yEULMiHLqdAb2wlGIF3EjMZ+4FPy9tLSaMQ==
 
 "@nexys/workflow@^0.0.9":
   version "0.0.9"
