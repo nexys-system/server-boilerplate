@@ -42,6 +42,14 @@ This will fetch the data model, the submodels, roles, option sets, api requests,
 
 Note: this command can only be run if you have the environment variables and an `APP-TOKEN`.
 
+## GraphQL
+
+You can query the database using [GraphQL](https://graphql.org/). The URLs are
+* `host/graphql/query` for querying
+* `host/graphql/schema` for the schema
+
+Don't forget to add the `APP-TOKEN` (look in your `.env` file) in the headers: `Authorization: Bearer APP-TOKEN`
+
 ## Deployment
 
 A docker is generated upon new version creation, see https://github.com/nexys-system/server-boilerplate/releases
