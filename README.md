@@ -5,7 +5,7 @@
 
 This repo generates a fully working node server (typescript).
 
-It is based on [![NPM package](https://badge.fury.io/js/%40nexys%2Fcore.svg)](https://www.npmjs.com/package/@nexys/core) and most configurations can be managed at [nexys.io](https://app.nexys.io).
+It is based on [nexys/core](https://github.com/nexys-system/core) [![NPM package](https://badge.fury.io/js/%40nexys%2Fcore.svg)](https://www.npmjs.com/package/@nexys/core) and most configurations can be managed in [nexys.io](https://app.nexys.io).
 
 ## Get started
 
