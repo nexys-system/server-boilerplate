@@ -18,7 +18,7 @@ yarn
 yarn watch
 ```
 
-Note: that the CI Node version is set to 17.If your build fails locally try to change your node version to the one used in the CI.
+Note: that the CI Node version is set to 18.If your build fails locally try to change your node version so it matches the one used in the CI.
 
 ### Sync with Nexys.io
 
