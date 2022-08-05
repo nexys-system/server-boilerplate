@@ -1,6 +1,6 @@
 {
   "name": "@nexys-system/server-boilerplate",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Server boilerplate using @nexys/core",
   "main": "dist/index.js",
   "scripts": {
