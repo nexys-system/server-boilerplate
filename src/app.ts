@@ -5,7 +5,9 @@ import MetaRoutes from '@nexys/core/dist/routes/product/meta';
 import userManagementRoutes from './routes/user-management';
 
 // replace crud with graphql
-import CrudRoutes from './routes/crud';
+//import CrudRoutes from './routes/crud';
+import GraphQLRoutes from './routes/graphql';
+
 import PublicRoutes from './routes/public';
 
 import * as Product from './product';
@@ -24,7 +26,8 @@ router.get('/email', async ctx => {
 
 router.use('/meta', MetaRoutes());
 router.use(userManagementRoutes);
-router.use('/crud', CrudRoutes);
+//router.use('/crud', CrudRoutes);
+router.use("/graphql", GraphQLRoutes);
 router.use(PublicRoutes);
 
 router.get('/', ctx => {
