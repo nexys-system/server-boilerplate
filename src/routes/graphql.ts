@@ -14,8 +14,7 @@ const pool = new Connection.SQL(Config.database);
 
 const schemas = new Schema<Permissions>(model, pool, submodels);
 
-console.log(Config.appToken);
-console.log(Product.middlewareAuth);
+
 
 const router = getRouter(
   schemas,
