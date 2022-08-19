@@ -66,6 +66,17 @@ mutation {
 }
 ```
 
+### Accessing the GraphQL object from within the app
+
+```
+import { graphql, printSchema } from "graphql";
+import Schema from "@nexys/fetchr/dist/graphql/schema";
+
+const query:string = ""; // graphql query
+
+const result = await graphql({ schema: schemas.gQLSchema, source: query });
+```
+
 Don't forget to add the `APP-TOKEN` (look in your `.env` file) in the headers: `Authorization: Bearer APP-TOKEN`
 
 ## Deployment
