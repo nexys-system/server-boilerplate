@@ -48,6 +48,24 @@ You can query the database using [GraphQL](https://graphql.org/). The URLs are
 * `host/graphql/query` for querying
 * `host/graphql/schema` for the schema
 
+### Graphql query examples (tested in postman)
+
+#### Query
+
+```
+{
+  Instance{name}
+}
+```
+
+#### Mutation
+
+```
+mutation {
+  insertInstance( name:"main", logDateAdded: "2022-12-12"){uuid}
+}
+```
+
 Don't forget to add the `APP-TOKEN` (look in your `.env` file) in the headers: `Authorization: Bearer APP-TOKEN`
 
 ## Deployment
