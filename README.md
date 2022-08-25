@@ -67,6 +67,15 @@ mutation {
   insertInstance( name:"main", logDateAdded: "2022-12-12"){uuid}
 }
 ```
+
+##### Update 
+
+```
+mutation {
+  updateInstance(data:{name: "main2"}, filters:{name: "main"}){updated}
+}
+```
+
 ##### Delete
 
 ```
