@@ -60,9 +60,18 @@ You can query the database using [GraphQL](https://graphql.org/). The URLs are
 
 #### Mutation
 
+##### Insert
+
 ```
 mutation {
   insertInstance( name:"main", logDateAdded: "2022-12-12"){uuid}
+}
+```
+##### Delete
+
+```
+mutation {
+  deleteInstance(input:{uuid:"20074488-2467-11ed-8130-42010aac000a"}){deleted}
 }
 ```
 
