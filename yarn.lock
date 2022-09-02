@@ -486,23 +486,23 @@
   resolved "https://registry.yarnpkg.com/@nexys/api-request/-/api-request-0.0.1.tgz#88e121a87032f08cebe5ad07ed80802178bdfd51"
   integrity sha512-2NEhkeKP6s1Icfh6DDBueugFwPuCuib92OyDUQ6+KR5UdN2kL2NmizltaatNs3ugeESoSRlV2SA3zzFsoLctag==
 
-"@nexys/core@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@nexys/core/-/core-1.0.8.tgz#265be1659e777891c0a296eb4d4b3680b3c557f9"
-  integrity sha512-P8Q7Ez2Ed5KgNiNFWdcTDTXrpklP+FX5nV4y5dQXyYWDigJN4LNfCCiT+f2gZvKFGMkO6VM6ndw0jnyi1x34CQ==
+"@nexys/core@^1.1.20":
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/@nexys/core/-/core-1.1.20.tgz#a874689cce80d1432373876ade5f124c414858c5"
+  integrity sha512-BiuburxEOxPCeTj17WjtYP3kifx+6zz7MXrO+5kYGt0bmy23XqY5CUqgKl/VTDRT9t/9qggoc18E1NzkXS2d7w==
   dependencies:
     "@nexys/api-request" "^0.0.1"
     "@nexys/crypto" "^1.0.4"
-    "@nexys/fetchr" "^0.5.3"
+    "@nexys/fetchr" "^0.7.7"
     "@nexys/http" "^1.0.0"
     "@nexys/node-cache" "^0.0.1"
     "@nexys/utils" "^3.9.14"
-    "@nexys/validation" "^2.1.4"
+    "@nexys/validation" "^2.1.5"
     "@nexys/workflow" "^0.0.9"
     "@types/bcryptjs" "^2.4.2"
     "@types/graphql-fields" "^1.3.4"
     "@types/jsonwebtoken" "^8.5.5"
-    "@types/koa" "^2.13.4"
+    "@types/koa" "^2.13.5"
     "@types/koa-helmet" "^6.0.1"
     "@types/koa-logger" "^3.1.1"
     "@types/koa-mount" "^4.0.0"
@@ -510,10 +510,10 @@
     "@types/node-fetch" "^2.5.12"
     bcryptjs "^2.4.3"
     dotenv "^10.0.0"
-    graphql "^15.5.1"
+    graphql "^16.5.0"
     graphql-fields "^2.0.3"
     jsonwebtoken "^8.5.1"
-    koa "^2.13.1"
+    koa "^2.13.4"
     koa-body "^4.2.0"
     koa-helmet "^6.0.0"
     koa-logger "^3.2.1"
@@ -527,12 +527,12 @@
   resolved "https://registry.yarnpkg.com/@nexys/crypto/-/crypto-1.0.4.tgz#087ea960516ca3fee810fd3ea51002db22e07c3f"
   integrity sha512-acsLzzudQyXKDQ5enym9XTpR2u1cey7qjdRjtNf58wP20SSR6h6iRuLLWy9ALIBfwURY0DUe13QY9aD2woDsGw==
 
-"@nexys/fetchr@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@nexys/fetchr/-/fetchr-0.5.3.tgz#38bd32703097097c30abbb848a69c88885620aa7"
-  integrity sha512-kyEApIiiLXMG4e4H3jOBq74LNglYonNgE76YDbsZy8url+6rGpw8HTTeGv8VHJY455jNB7vriUVYI1g1rzejFA==
+"@nexys/fetchr@^0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@nexys/fetchr/-/fetchr-0.7.7.tgz#7bfd3afe00b84d048968fa2c97ec9f0acdafdd13"
+  integrity sha512-87NY5Ukynaa/wonMI7pO5TvYjcgJGVC9PEyoPJeRvXMov+7fMqVU6jKajVrtuRtfu5Uqmllqct6SsaYQyxEN8A==
   dependencies:
-    "@nexys/validation" "^2.1.0"
+    "@nexys/validation" "^2.1.4"
     "@types/sqlstring" "^2.3.0"
     mysql2 "^2.2.5"
     sqlstring "^2.3.2"
@@ -556,17 +556,15 @@
   resolved "https://registry.yarnpkg.com/@nexys/utils/-/utils-3.9.14.tgz#db7e3581dd3f15990334842111be35d5aba443ca"
   integrity sha512-ab+iVapztGguPbHaACoNXtn65iWh+hSqNOoKnIQkmldsQ4yUsRpPhs+Us+x2g5A3/ShwxREAz8DMLp0rpYcWig==
 
-"@nexys/validation@^2.1.0":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-2.1.2.tgz#1dda5a8e18760c44f66a86e90030d27fea82238d"
-  integrity sha512-p47+6HC2ZXwDNRHA43cN+HyDhfcAZ9QhoyXKp0b+EsmzEGkHDe1ZyWJzqUKwpXVU22c3l5ujD8+mCw0CHLVbTw==
-  dependencies:
-    "@nexys/utils" "^3.9.14"
-
 "@nexys/validation@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-2.1.4.tgz#99e55f385f90810d5704edc55cb9b27f4ef631bb"
   integrity sha512-BkGNcV8WWBRGJJm3+KG/oU7gj/0TSfvaJ30nIfukzISsh+p8jk6yEULMiHLqdAb2wlGIF3EjMZ+4FPy9tLSaMQ==
+
+"@nexys/validation@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@nexys/validation/-/validation-2.1.5.tgz#187aa5cf3e8cfe240ded58dbca042d83732ba076"
+  integrity sha512-R5y4sj26CRBZRFt2V1G4RGLEN98oqMJ0PhaGfNgxkRp5jBcFFCRl4AWBfVxARiF7JgSXo3B8YsCaspni52quGA==
 
 "@nexys/workflow@^0.0.9":
   version "0.0.9"
@@ -797,10 +795,24 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa@*", "@types/koa@^2.13.4":
+"@types/koa@*":
   version "2.13.4"
   resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.13.4.tgz#10620b3f24a8027ef5cbae88b393d1b31205726b"
   integrity sha512-dfHYMfU+z/vKtQB7NUrthdAEiSvnLebvBjwHtfFmpZmB7em2N3WVQdHgnFq+xvyVgxW5jKDmjWfLD3lw4g4uTw==
+  dependencies:
+    "@types/accepts" "*"
+    "@types/content-disposition" "*"
+    "@types/cookies" "*"
+    "@types/http-assert" "*"
+    "@types/http-errors" "*"
+    "@types/keygrip" "*"
+    "@types/koa-compose" "*"
+    "@types/node" "*"
+
+"@types/koa@^2.13.5":
+  version "2.13.5"
+  resolved "https://registry.yarnpkg.com/@types/koa/-/koa-2.13.5.tgz#64b3ca4d54e08c0062e89ec666c9f45443b21a61"
+  integrity sha512-HSUOdzKz3by4fnqagwthW/1w/yJspTgppyyalPVbgZf8jQWvdIXcVW5h2DGtw4zYntOaeRGx49r1hxoPWrD4aA==
   dependencies:
     "@types/accepts" "*"
     "@types/content-disposition" "*"
@@ -1955,10 +1967,15 @@ graphql-fields@^2.0.3:
   resolved "https://registry.yarnpkg.com/graphql-fields/-/graphql-fields-2.0.3.tgz#5e68dff7afbb202be4f4f40623e983b22c96ab8f"
   integrity sha512-x3VE5lUcR4XCOxPIqaO4CE+bTK8u6gVouOdpQX9+EKHr+scqtK5Pp/l8nIGqIpN1TUlkKE6jDCCycm/WtLRAwA==
 
-graphql@^15.3.0, graphql@^15.5.1:
+graphql@^15.3.0:
   version "15.8.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
+
+graphql@^16.5.0:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.6.0.tgz#c2dcffa4649db149f6282af726c8c83f1c7c5fdb"
+  integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
 
 growly@^1.3.0:
   version "1.3.0"
@@ -2948,7 +2965,7 @@ koa-router@^7.4.0:
     path-to-regexp "^1.1.1"
     urijs "^1.19.0"
 
-koa@^2.13.1:
+koa@^2.13.4:
   version "2.13.4"
   resolved "https://registry.yarnpkg.com/koa/-/koa-2.13.4.tgz#ee5b0cb39e0b8069c38d115139c774833d32462e"
   integrity sha512-43zkIKubNbnrULWlHdN5h1g3SEKXOEzoAlRsHOTFpnlDu8JlAOZSMJBLULusuXRequboiwJcj5vtYXKB3k7+2g==
@@ -4268,10 +4285,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^3.9.3:
-  version "3.9.10"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
-  integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
+typescript@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.2.tgz#e3b33d5ccfb5914e4eeab6699cf208adee3fd790"
+  integrity sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==
 
 union-value@^1.0.0:
   version "1.0.1"
